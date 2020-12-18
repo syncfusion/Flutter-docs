@@ -278,7 +278,7 @@ The [`show`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/char
 
 The [`showByIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TrackballBehavior/showByIndex.html) method is used to activate the trackball at the specified point index.
 
-[`pointIndex`]() - index of the point for which the trackball must be shown.
+[`pointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TrackballDetails/pointIndex.html) - index of the point for which the trackball must be shown.
 
 {% highlight dart %} 
 
@@ -1056,6 +1056,83 @@ Widget build(BuildContext context) {
       )
     ]
     );
+    }
+
+{% endhighlight %}
+
+## PixelToPoint 
+
+Converts logical pixel value to the data point value.
+  
+The [`pixelToPoint`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/ChartSeriesController/pixelToPoint.html) method takes logical pixel value as input and returns a chart data point.
+  
+Since this method is in the series controller, x and y-axis associated with this particular series will be considering for conversion value.
+  
+>**NOTE** This method is only applicable for Cartesian chart, not for the circular, pyramid,
+and funnel charts.
+
+{% highlight dart %}
+
+    @override
+    Widget build(BuildContext context) {
+    ChartSeriesController seriesController;
+      return Container(
+            child: SfCartesianChart(
+             series: <CartesianSeries<ChartSampleData, num>>[
+               LineSeries<ChartSampleData, num>(
+                 onRendererCreated: (ChartSeriesController controller) {
+                   seriesController = controller;
+                 },
+               )
+             ],
+             onChartTouchInteractionUp: (ChartTouchInteractionArgs args) {
+               final Offset value = Offset(args.position.dx, args.position.dy);
+               CartesianChartPoint<dynamic> chartpoint =
+                 seriesController.pixelToPoint(value);
+               print('X point: ${chartpoint.x}');
+               print('Y point: ${chartpoint.y}');
+           }
+         )
+       );
+     }
+
+{% endhighlight %}
+
+## PointToPixel 
+
+Converts chart data point value to logical pixel value.
+  
+The [`pointToPixel`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/ChartSeriesController/pointToPixel.html) method takes chart data point value as input and returns logical pixel value.
+  
+Since this method is in the series controller, x and y-axis associated with this particular series will be considering for conversion value.
+  
+>**NOTE** This method is only applicable for Cartesian chart, not for the circular, pyramid,
+and funnel charts.
+  
+{% highlight dart %}
+
+    @override 
+    Widget build(BuildContext context) {
+    ChartSeriesController seriesController;
+      return Container(
+            child: SfCartesianChart(
+             series: <CartesianSeries<ChartSampleData, num>>[
+               ColumnSeries<ChartSampleData, num>(
+                 onRendererCreated: (ChartSeriesController controller) {
+                   seriesController = controller;
+                 },
+               )
+             ],
+             onPointTapped: (PointTapArgs args) {
+               CartesianChartPoint<dynamic> chartPoint =
+                   CartesianChartPoint<dynamic>(data[args.pointIndex].x,
+                       data[args.pointIndex].y);
+               Offset pointLocation = seriesController.pointToPixel(chartPoint);
+               print('X location: ${pointLocation.x}');
+               print('Y location: ${pointLocation.y}');
+             },
+         )
+       );
     }
 
 {% endhighlight %}
