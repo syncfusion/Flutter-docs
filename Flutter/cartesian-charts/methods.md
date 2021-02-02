@@ -65,7 +65,7 @@ The [`show`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/char
 
 ### showByIndex method in tooltipBehavior
 
-The [`showByIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TooltipBehavior/showByIndex.html) method is used to Displays the tooltip at the specified series and point index.
+The [`showByIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TooltipBehavior/showByIndex.html) method is used to display the tooltip at the specified series and point index.
 
 The below mentioned arguments are given to the [`showByIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TooltipBehavior/showByIndex.html) method:
 
@@ -122,7 +122,7 @@ The below mentioned arguments are given to the [`showByIndex`](https://pub.dev/d
 
 ### showByPixel method in tooltipBehavior
 
-The [`showByPixel`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TooltipBehavior/showByPixel.html) method is used to Displays the tooltip at the specified x and y-positions.
+The [`showByPixel`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TooltipBehavior/showByPixel.html) method is used to display the tooltip at the specified x and y-positions.
 
 x & y - logical pixel values to position the tooltip.
 
@@ -278,7 +278,7 @@ The [`show`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/char
 
 The [`showByIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TrackballBehavior/showByIndex.html) method is used to activate the trackball at the specified point index.
 
-[`pointIndex`]() - index of the point for which the trackball must be shown.
+[`pointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TrackballDetails/pointIndex.html) - index of the point for which the trackball must be shown.
 
 {% highlight dart %} 
 
@@ -1009,12 +1009,12 @@ To overcome this problem, the `updateDataSource` method can be called by passing
 old data points processing, etc. Thus, this will improve the app’s performance.
 
 The following are the arguments of this method.
-* `addedDataIndexes` – `List<int>` type – Indexes of newly added data points in the existing series.
-* `removedDataIndexes` – `List<int>` type – Indexes of removed data points in the existing series.
- * `updatedDataIndexes` – `List<int>` type – Indexes of updated data points in the existing series.
- * `addedDataIndex` – `int` type – Index of newly added data point in the existing series.
- * `removedDataIndex` – `int` type – Index of removed data point in the existing series.
-* `updatedDataIndex` – `int` type – Index of updated data point in the existing series.
+* `addedDataIndexes` - `List<int>` type - Indexes of newly added data points in the existing series.
+* `removedDataIndexes` - `List<int>` type - Indexes of removed data points in the existing series.
+ * `updatedDataIndexes` - `List<int>` type - Indexes of updated data points in the existing series.
+ * `addedDataIndex` - `int` type - Index of newly added data point in the existing series.
+ * `removedDataIndex` - `int` type - Index of removed data point in the existing series.
+* `updatedDataIndex` - `int` type - Index of updated data point in the existing series.
 
 
 {% highlight dart %}
@@ -1056,6 +1056,83 @@ Widget build(BuildContext context) {
       )
     ]
     );
+    }
+
+{% endhighlight %}
+
+## PixelToPoint 
+
+Converts logical pixel value to the data point value.
+  
+The [`pixelToPoint`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/ChartSeriesController/pixelToPoint.html) method takes logical pixel value as input and returns a chart data point.
+  
+Since this method is in the series controller, x and y-axis associated with this particular series will be considering for conversion value.
+  
+>**NOTE** This method is only applicable for Cartesian chart, not for the circular, pyramid,
+and funnel charts.
+
+{% highlight dart %}
+
+    @override
+    Widget build(BuildContext context) {
+    ChartSeriesController seriesController;
+      return Container(
+            child: SfCartesianChart(
+             series: <CartesianSeries<ChartSampleData, num>>[
+               LineSeries<ChartSampleData, num>(
+                 onRendererCreated: (ChartSeriesController controller) {
+                   seriesController = controller;
+                 },
+               )
+             ],
+             onChartTouchInteractionUp: (ChartTouchInteractionArgs args) {
+               final Offset value = Offset(args.position.dx, args.position.dy);
+               CartesianChartPoint<dynamic> chartpoint =
+                 seriesController.pixelToPoint(value);
+               print('X point: ${chartpoint.x}');
+               print('Y point: ${chartpoint.y}');
+           }
+         )
+       );
+     }
+
+{% endhighlight %}
+
+## PointToPixel 
+
+Converts chart data point value to logical pixel value.
+  
+The [`pointToPixel`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/ChartSeriesController/pointToPixel.html) method takes chart data point value as input and returns logical pixel value.
+  
+Since this method is in the series controller, x and y-axis associated with this particular series will be considering for conversion value.
+  
+>**NOTE** This method is only applicable for Cartesian chart, not for the circular, pyramid,
+and funnel charts.
+  
+{% highlight dart %}
+
+    @override 
+    Widget build(BuildContext context) {
+    ChartSeriesController seriesController;
+      return Container(
+            child: SfCartesianChart(
+             series: <CartesianSeries<ChartSampleData, num>>[
+               ColumnSeries<ChartSampleData, num>(
+                 onRendererCreated: (ChartSeriesController controller) {
+                   seriesController = controller;
+                 },
+               )
+             ],
+             onPointTapped: (PointTapArgs args) {
+               CartesianChartPoint<dynamic> chartPoint =
+                   CartesianChartPoint<dynamic>(data[args.pointIndex].x,
+                       data[args.pointIndex].y);
+               Offset pointLocation = seriesController.pointToPixel(chartPoint);
+               print('X location: ${pointLocation.x}');
+               print('Y location: ${pointLocation.y}');
+             },
+         )
+       );
     }
 
 {% endhighlight %}

@@ -19,11 +19,16 @@ The procedure for zooming and panning for both layers is very similar.
 {% highlight Dart %}
 
 MapZoomPanBehavior _zoomPanBehavior;
+MapShapeSource _dataSource;
 
 @override
 void initState() {
-    super.initState();
-    _zoomPanBehavior = MapZoomPanBehavior();
+  super.initState();
+  _dataSource = MapShapeSource.asset(
+    'assets/world_map.json',
+    shapeDataField: 'continent',
+  );
+  _zoomPanBehavior = MapZoomPanBehavior();
 }
 
 @override
@@ -32,10 +37,7 @@ Widget build(BuildContext context) {
         body: SfMaps(
             layers: [
                 MapShapeLayer(
-                    delegate: MapShapeLayerDelegate(
-                        shapeFile: 'assets/world_map.json',
-                        shapeDataField: 'continent',
-                    ),
+                    source: _dataSource,
                     zoomPanBehavior: _zoomPanBehavior,
                 ),
             ],
@@ -130,6 +132,63 @@ Widget build(BuildContext context) {
 
 ![Bing maps aerial focalLatLng](images/zoom-pan/bing_maps_focallatlng.png)
 
+## Update the center latitude and longitude programmatically
+
+You can change the center latitude and longitude of the shape layer programmatically using the [`MapZoomPanBehavior.focalLatLng`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/focalLatLng.html) property.
+
+N> It is applicable for both shape layer and tile layer.
+
+{% tabs %}
+{% highlight Dart %}
+
+MapZoomPanBehavior _zoomPanBehavior;
+MapShapeSource _dataSource;
+
+@override
+void initState() {
+  super.initState();
+  _dataSource = MapShapeSource.asset(
+     'assets/world_map.json',
+      shapeDataField: 'continent',
+  );
+
+  _zoomPanBehavior = MapZoomPanBehavior(
+    focalLatLng: MapLatLng(27.1751, 78.0421),
+    zoomLevel: 4,
+  );
+}
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+     body: Column(
+        children: [
+          Container(
+            height: 600,
+            child: SfMaps(
+              layers: [
+                MapShapeLayer(
+                  source: _dataSource,
+                  zoomPanBehavior: _zoomPanBehavior,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(height: 20),
+          RaisedButton(
+            child: Text('Change focalLatLng'),
+            onPressed: () {
+               _zoomPanBehavior.focalLatLng = MapLatLng(56.1304, -106.3468);
+            },
+          ),
+        ],
+     ),
+  );
+}
+
+{% endhighlight %}
+{% endtabs %}
+
 ## Customizing the zoom level
 
 You can set the current zoom level of the map layer by using [`MapZoomPanBehavior.zoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/zoomLevel.html) property.
@@ -178,9 +237,65 @@ Widget build(BuildContext context) {
 
 ![Bing maps aerial zoomlevel](images/zoom-pan/bing_maps_zoomlevel.png)
 
+## Update the zoom level programmatically
+
+You can change the zoom level of the shape layer programmatically using the [`MapZoomPanBehavior.zoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/zoomLevel.html) property.
+
+N> It is applicable for both shape layer and tile layer.
+
+{% tabs %}
+{% highlight Dart %}
+
+MapZoomPanBehavior _zoomPanBehavior;
+MapShapeSource _dataSource;
+
+@override
+void initState() {
+  _dataSource = MapShapeSource.asset(
+     'assets/world_map.json',
+     shapeDataField: 'continent',
+  );
+  _zoomPanBehavior = MapZoomPanBehavior(
+     focalLatLng: MapLatLng(27.1751, 78.0421),
+     zoomLevel: 2,
+  );
+  super.initState();
+}
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Column(
+      children: [
+        Container(
+          height: 600,
+          child: SfMaps(
+            layers: [
+              MapShapeLayer(
+                source: _dataSource,
+                zoomPanBehavior: _zoomPanBehavior,
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+        RaisedButton(
+          child: Text('Change zoomLevel'),
+          onPressed: () {
+            _zoomPanBehavior.zoomLevel = 7;
+          },
+        ),
+      ],
+    ),
+  );
+}
+
+{% endhighlight %}
+{% endtabs %}
+
 ## Customizing min and max zoom level
 
-You can set the min and max zoom level of the map layer by setting the value to [`MapZoomPanBehavior.minZoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/minZoomLevel.html) and [`MapZoomPanBehavior.maxZoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/maxZoomLevel.html) properties. The minimum and maximum zooming levels can be restricted using these properties respectively. The default values of [`MapZoomPanBehavior.minZoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/minZoomLevel.html) and [`MapZoomPanBehavior.maxZoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/maxZoomLevel.html) are 0 and 15 respectively.
+You can set the min and max zoom level of the map layer by setting the value to [`MapZoomPanBehavior.minZoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/minZoomLevel.html) and [`MapZoomPanBehavior.maxZoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/maxZoomLevel.html) properties. The minimum and maximum zooming levels can be restricted using these properties respectively. The default values of [`MapZoomPanBehavior.minZoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/minZoomLevel.html) and [`MapZoomPanBehavior.maxZoomLevel`](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/maxZoomLevel.html) are 1 and 15 respectively.
 
 However, for [MapTileLayer](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapTileLayer-class.html), [MapZoomPanBehavior.maxZoomLevel](https://pub.dev/documentation/syncfusion_flutter_maps/latest/maps/MapZoomPanBehavior/maxZoomLevel.html) may slightly vary depends on the providers. Kindly check the respective official website of the map tile providers to know about the maximum zoom level it supports.
 

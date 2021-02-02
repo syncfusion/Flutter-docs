@@ -39,7 +39,8 @@ To render any indicator, add it to the [`TechnicalIndicators`](https://pub.dev/d
 * [`name`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/name.html) - Used to define the label for corresponding indicators.
 * [`dashArray`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/dashArray.html) - Used to render the indicators with dashes.
 
-*Note* If you giving series and indicator in the chart, you can add  the same [`seriesName`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/seriesName.html) to the series and indicator, otherwise you can directly bind the [`dataSource`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/dataSource.html) to the [`indicators`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCartesianChart/indicators.html) property.
+
+N> If you giving series and indicator in the chart, you can add the same [`seriesName`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/seriesName.html) to the series and indicator, otherwise you can directly bind the [`dataSource`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/dataSource.html) to the [`indicators`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCartesianChart/indicators.html) property.
 
 ## Indicator Types
 
@@ -56,7 +57,7 @@ Refer the following example,
        return Scaffold(
         body: Center(
           child: SfCartesianChart(
-            legend: Legend(isVisible: true,
+            legend: Legend(isVisible: true),
             indicators: <TechnicalIndicators<Sample,dynamic>>[AccumulationDistributionIndicator<Sample, dynamic>(
                   seriesName: 'HiloOpenClose')],
             series: <ChartSeries<Sample, dynamic>>[
@@ -67,8 +68,13 @@ Refer the following example,
               highValueMapper: (Sample sales, _) => sales.high,
               openValueMapper: (Sample sales, _) => sales.open,
               closeValueMapper: (Sample sales, _) => sales.close,
-              name: 'HiloOpenClose'),])));
-      }}
+              name: 'HiloOpenClose'),
+              ]
+            )
+          )
+        );
+      }
+
 {% endhighlight %}
 
 ![ADIndicator](images/technical-indicators/ad.jpg)
@@ -86,16 +92,18 @@ Refer the following example,
      return Scaffold(
         body: Center(
          child: SfCartesianChart(
-          legend: Legend(isVisible: true,
+          legend: Legend(isVisible: true),
           indicators:
           <TechnicalIndicators<dynamic,   dynamic>>[
           AtrIndicator<dynamic, dynamic>(
             period: 3,
             seriesName: 'HiloOpenClose')],
     series: <CartesianSeries<Sample, dynamic>>[
-              name: 'HiloOpenClose'),
-              ])));
-        }
+            HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')
+              ]
+            )
+          )
+        );
       }
 
 {% endhighlight %}
@@ -117,15 +125,17 @@ Refer the following example,
      return Scaffold(
        body: Center(
          child: SfCartesianChart(
-           legend: Legend(isVisible: true,
+           legend: Legend(isVisible: true),
            indicators:        <TechnicalIndicators<dynamic, dynamic>[ BollingerBandIndicator<dynamic, dynamic>(
                   period: 3,
                   seriesName: 'HiloOpenClose')],
            series: <CartesianSeries<Sample,dynamic>>[
               HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')
-              ])));         
-       }
-     }
+              ]
+            )
+          )
+        );         
+      }
 
 {% endhighlight %}
 
@@ -146,7 +156,7 @@ Refer the following example,
       return Scaffold(
         body: Center(
           child: SfCartesianChart(
-            legend: Legend(isVisible: true,
+            legend: Legend(isVisible: true),
             indicators: <TechnicalIndicators<dynamic, dynamic>>[
         EmaIndicator<dynamic, dynamic>(
             seriesName: 'HiloOpenClose',
@@ -154,8 +164,10 @@ Refer the following example,
             series: <ChartSeries<Sample, dynamic>>[
         HiloOpenCloseSeries<Sample, dynamic>(
             name: 'HiloOpenClose')
-            ])));
-     }
+            ]
+          )
+        )
+      );
     }
 
 {% endhighlight %}
@@ -179,7 +191,7 @@ Refer the following example,
      return Scaffold(
        body: Center(
           child: SfCartesianChart(
-            legend: Legend(isVisible: true,
+            legend: Legend(isVisible: true),
             indicators: <TechnicalIndicators<dynamic, dynamic>>[
           MacdIndicator<dynamic, dynamic>(
               longPeriod: 5,
@@ -187,9 +199,11 @@ Refer the following example,
               seriesName: 'HiloOpenClose')],
             series: <CartesianSeries<Sample, dynamic>>[
           HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')
-          ])));
-       }
-     }
+           ]
+          )
+        )
+      );
+    }
 
 {% endhighlight %}
 
@@ -208,15 +222,17 @@ Refer the following example,
       return Scaffold(
         body: Center(
           child: SfCartesianChart(
-            legend: Legend(isVisible: true,
+            legend: Legend(isVisible: true),
             indicators: <TechnicalIndicators<dynamic, dynamic>>[
           MomentumIndicator<dynamic, dynamic>(
             period: 3,
             seriesName: 'HiloOpenClose',)],
            series: <ChartSeries<Sample, dynamic>>[
           HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')
-          ])));
-     }
+            ]
+          )
+        )
+      );
     }
 
 {% endhighlight %}
@@ -237,7 +253,7 @@ Refer the following example,
       return Scaffold(
         body: Center(
           child: SfCartesianChart(
-            legend: Legend(isVisible: true,
+            legend: Legend(isVisible: true),
              indicators: <TechnicalIndicators<dynamic, dynamic>>[
           RsiIndicator<dynamic, dynamic>(
             period: 3,
@@ -245,9 +261,12 @@ Refer the following example,
             overbought: 70,
             oversold: 30)],
             series: <ChartSeries<Sample, dynamic>>[
-          HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')])));
+          HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')
+            ]
+          )
+        )
+      );
      }
-    }
 
 {% endhighlight %}
 
@@ -264,14 +283,18 @@ The [`Simple moving average indicator`](https://pub.dev/documentation/syncfusion
       return Scaffold(
         body: Center(
           child: SfCartesianChart(
-            legend: Legend(isVisible: true,
+            legend: Legend(isVisible: true),
             indicators: <TechnicalIndicators<dynamic, dynamic>>[
           SmaIndicator<dynamic, dynamic>(
             seriesName: 'HiloOpenClose',
             valueField: 'close')],
            series: <ChartSeries<Sample, dynamic>>[
-          HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')])));
-    }}
+          HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')
+            ]
+          )
+        )
+      );
+    }
 
 {% endhighlight %}
 
@@ -292,15 +315,19 @@ Refer the following example,
       return Scaffold(
         body: Center(
           child: SfCartesianChart(
-            legend: Legend(isVisible: true,
+            legend: Legend(isVisible: true),
             indicators: <TechnicalIndicators<dynamic, dynamic>>[
           StochasticIndicator<dynamic, dynamic>(   
               seriesName: 'HiloOpenClose',,
               kPeriod: 2,
               dPeriod: 3)],
              series: <ChartSeries<Sample, dynamic>>[
-          HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')])));
-    }}
+          HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')
+            ]
+          )
+        )
+      );
+    }
 
 {% endhighlight %}
 
@@ -319,14 +346,18 @@ Refer the following example,
       return Scaffold(
         body: Center(
           child: SfCartesianChart(
-            legend: Legend(isVisible: true,
+            legend: Legend(isVisible: true),
             indicators: <TechnicalIndicators<dynamic, dynamic>>[
           TmaIndicator<Sample, dynamic>(
               seriesName: 'HiloOpenClose',
               valueField: 'low')],
             series: <ChartSeries<Sample, dynamic>>[
-          HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')])));
-    }}
+          HiloOpenCloseSeries<Sample, dynamic>(name: 'HiloOpenClose')
+            ]
+          )
+        )
+      );
+    }
 {% endhighlight %}
 
 ![TMAIndicator](images/technical-indicators/tma.jpg)
@@ -352,8 +383,12 @@ The following code example can define the legend.
                   legendItemText: 'Indicator')],
             series: <ChartSeries<Sample, dynamic>>[
               HiloOpenCloseSeries<Sample, dynamic>(
-                  name: 'HiloOpenClose')])));
-    }}
+                  name: 'HiloOpenClose')
+                  ]
+                )
+              )
+            );
+          }
 
 {% endhighlight %}
 
@@ -377,13 +412,80 @@ The chart will display the segment information through the tooltip. It is used t
             indicators: <TechnicalIndicators<dynamic, dynamic>>[
               ATRIndicator<dynamic, dynamic>(
                   seriesName: 'HiloOpenClose',
-                  )],
+                  )
+                ],
             series: <ChartSeries<Sample, dynamic>>[
               HiloOpenCloseSeries<Sample, dynamic>(
                   enableTooltip: true,
-                  name: 'HiloOpenClose')])));
-    }}
+                  name: 'HiloOpenClose')
+              ]
+            )
+          )
+        );
+      }
 
 {% endhighlight %}
 
 ![tooltip](images/technical-indicators/tooltip.jpg)
+
+## Binding data source to indicators
+
+In order to use [`TechnicalIndicators`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators-class.html) for line, area chart etc., you need to bind the data source of the chart to indicator's [`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html), [`lowValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/lowValueMapper.html), [`highValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/highValueMapper.html), [`openValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/openValueMapper.html), [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html) respectively. 
+
+Refer the following example below
+
+{% highlight dart %}
+
+    @override
+    Widget build(BuildContext context){
+      return Scaffold(
+        body: Center(
+          child: SfCartesianChart(
+            indicators: <TechnicalIndicators>[
+            MomentumIndicator<SalesData, num>(
+                period: 5,
+                dataSource: chartData,
+                xValueMapper: (SalesData sales, _) => sales.x,
+                highValueMapper: (SalesData sales, _) => sales.high,
+                lowValueMapper: (SalesData sales, _) => sales.low,
+                openValueMapper: (SalesData sales, _) => sales.open,
+                closeValueMapper: (SalesData sales, _) => sales.close,
+              )
+            ], 
+            series: <ChartSeries<SalesData, num>>[
+              LineSeries<SalesData, num>(
+                  color: Colors.purple,
+                  dataSource: chartData,
+                  xValueMapper: (SalesData sales, _) => sales.x,
+                  yValueMapper: (SalesData sales, _) => sales.y,
+              )
+            ]
+          )
+        )
+      );
+    }
+
+{% endhighlight %}
+
+![Binding data source to Indicators](images/technical-indicators/indicator_binding.jpg)
+
+_Note_ : Each indicators has their own number of value mappers available,
+* [`Accumulation distribution indicator`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/AccumulationDistributionIndicator-class.html) (AD) - can be rendered with five value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html), [`lowValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/lowValueMapper.html), [`highValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/highValueMapper.html), [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html), [`volumeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/AccumulationDistributionIndicator/volumeValueMapper.html)).
+
+*	[`Average true range indicator`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/AtrIndicator-class.html) (ATR) - can be rendered with four value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html), [`lowValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/lowValueMapper.html), [`highValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/highValueMapper.html), [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html)).
+
+*	[`Bollinger band indicator`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/BollingerBandIndicator-class.html) - can be rendered with two value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html) and [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html)).
+
+*	[`Exponential moving average indicator`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/EmaIndicator-class.html) (EMA) - can be rendered with five value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html), [`lowValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/lowValueMapper.html), [`highValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/highValueMapper.html), [`openValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/openValueMapper.html), [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html)).
+
+* [`Moving average convergence divergence`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/MacdIndicator-class.html) (MACD) - can be rendered with two value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html) and [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html)).
+
+*	[`Momentum indicator`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/MomentumIndicator-class.html) - can be rendered with five value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html), [`lowValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/lowValueMapper.html), [`highValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/highValueMapper.html), [`openValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/openValueMapper.html), [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html)).
+
+*	[`Relative strength index indicator`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/RsiIndicator-class.html) (RSI) - can be rendered with four value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html), [`lowValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/lowValueMapper.html), [`highValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/highValueMapper.html), [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html)).
+
+*	[`Simple moving average indicator`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SmaIndicator-class.html) (SMA) - can be rendered with five value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html), [`lowValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/lowValueMapper.html), [`highValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/highValueMapper.html), [`openValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/openValueMapper.html), [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html)).
+
+*	[`Stochastic indicator`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/StochasticIndicator-class.html) - can be rendered with five value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html), [`lowValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/lowValueMapper.html), [`highValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/highValueMapper.html), [`openValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/openValueMapper.html), [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html)).
+
+*	[`Triangular moving average indicator`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TmaIndicator-class.html) (TMA) - can be rendered with five value mappers ([`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/xValueMapper.html), [`lowValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/lowValueMapper.html), [`highValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/highValueMapper.html), [`openValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/openValueMapper.html), [`closeValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TechnicalIndicators/closeValueMapper.html)).

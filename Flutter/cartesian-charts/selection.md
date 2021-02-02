@@ -49,7 +49,7 @@ You can customize the segments using the below properties.
 * [`unselectedBorderColor`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionBehavior/unselectedBorderColor.html) - used to change the stroke color of the unselected segment.
 * [`unselectedBorderWidth`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionBehavior/unselectedBorderWidth.html) - used to change the stroke width of the unselected segment.
 * [`selectedOpacity`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionBehavior/selectedOpacity.html) - used to control the transparency of the selected segment.
-* [`unselectedOpacity`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionBehavior/unselectedOpacity.html) - used to control the transparency of the selected segment.
+* [`unselectedOpacity`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionBehavior/unselectedOpacity.html) - used to control the transparency of the unselected segment.
 
 {% highlight dart %} 
 
@@ -142,7 +142,28 @@ You can select a point or series programmatically on a chart using [`initialSele
             body: Center(
                 child: Container(
                     child: SfCartesianChart(
-                        initialSelectedDataIndexes: <IndexesModel>[IndexesModel(1, 0)]
+                        series: <CartesianSeries>[
+                            ColumnSeries<ChartData, double>(
+                                // Initially selected the data at point index - 1.
+                                initialSelectedDataIndexes: <int>[1],
+                                dataSource: chartData1,
+                                xValueMapper: (ChartData data, _) => data.x,
+                                yValueMapper: (ChartData data, _) => data.y,
+                                selectionBehavior: SelectionBehavior(
+                                    // Enables the selection
+                                    enable: true
+                                )
+                            ),
+                            ColumnSeries<ChartData, double>(
+                                dataSource: chartData2,
+                                xValueMapper: (ChartData data, _) => data.x,
+                                yValueMapper: (ChartData data, _) => data.y,
+                                selectionBehavior: SelectionBehavior(
+                                    // Enables the selection
+                                    enable: true
+                                )
+                            )
+                        ]
                     )
                 )
             )

@@ -44,7 +44,7 @@ Numeric axis uses numerical scale and displays numbers as labels. By default, [`
 
 ### Inversed numeric axis
 
-By using  the [isInversed](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/ChartAxis/isInversed.html) Property in Cartesian charts, the  numeric axis can be inverted.Axis is rendered from the minimum value to the maximum value by default, and can be inverted from the maximum value to the minimum value.
+By using  the [isInversed](https://pub.dev/documentation/By using the [isInversed](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/ChartAxis/isInversed.html) property in Cartesian charts, the numeric axis can be inverted. Axis is rendered from the minimum value to the maximum value by default, and can be inverted from the maximum value to the minimum value.
 
 {% highlight dart %} 
 
@@ -280,6 +280,38 @@ The [`numberFormat`](https://pub.dev/documentation/syncfusion_flutter_charts/lat
 
 Also refer [label format](./axis-customization#formatting-axis-label-content) and [date format](#formatting-the-labels-1) for formatting the labels further.
 
+### Decimal places
+
+The [`decimalPlaces`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/NumericAxis/decimalPlaces.html) property of numeric axis can be used to control the number of decimal digits of the numeric axis labels. The default value of [`decimalPlaces`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/NumericAxis/decimalPlaces.html) property is 3.
+
+{% highlight dart %} 
+
+    @override
+    Widget build(BuildContext context) {
+        return Scaffold(
+            body: Center(
+                child: Container(
+                    child: SfCartesianChart(
+                        primaryXAxis: NumericAxis(
+                            deciamlPlaces: 5
+                        ),
+                        primaryYAxis: NumericAxis(
+                            decimalPlaces: 4,
+                            rangPadding: ChartRangePadding.none
+                        )
+                    )
+                )
+            )
+        );
+    }
+
+{% endhighlight %}
+
+![Decimal Places](images/axis-types/numeric_decimalplaces.jpg)
+
+>**NOTE**
+* In order to control the decimal places of the y-axis labels, you need to use [`decimalPlaces`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/NumericAxis/decimalPlaces.html) property of the axis along with setting the [`rangePadding`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/ChartAxis/rangePadding.html) to [`none`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/ChartRangePadding-class.html).
+* For x-axis labels, setting the [`decimalPlaces`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/NumericAxis/decimalPlaces.html) alone is enough.
 
 ## Category axis
 
@@ -693,8 +725,8 @@ To customize the range of log axis, use the [`minimum`](https://pub.dev/document
                 child: Container(
                     child: SfCartesianChart(
                         primaryYAxis: LogarithmicAxis(
-                            minimum: 300,
-                            maximum: 10000,
+                            minimum: 100,
+                            maximum: 100000,
                             interval: 1,
                         )  
                     )

@@ -91,7 +91,7 @@ Widget build(BuildContext context) {
 ![Century view Date Range Picker](images/views/centuryview.png)
 
 ## Week view
-The number of weeks in the month view can be customized by setting the [numberOfWeeksInView](https://pub.dev/documentation/syncfusion_flutter_datepicker/latest/datepicker/DateRangePickerMonthViewSettings/numberOfWeeksInView.html) property of DateRangePickerMonthViewSettings[https://pub.dev/documentation/syncfusion_flutter_datepicker/latest/datepicker/DateRangePickerMonthViewSettings-class.html].
+The number of weeks in the month view can be customized by setting the [numberOfWeeksInView](https://pub.dev/documentation/syncfusion_flutter_datepicker/latest/datepicker/DateRangePickerMonthViewSettings/numberOfWeeksInView.html) property of [DateRangePickerMonthViewSettings](https://pub.dev/documentation/syncfusion_flutter_datepicker/latest/datepicker/DateRangePickerMonthViewSettings-class.html).
 
 {% tabs %}
 {% highlight Dart %}
@@ -133,8 +133,35 @@ Widget build(BuildContext context) {
 
 ![Multi-date picker view](images/views/multi-picker-view.jpg)
 
+### Vertical picker
+You can arrange the two date range picker views in the vertical direction by setting the [navigationDirection](https://pub.dev/documentation/syncfusion_flutter_datepicker/latest/datepicker/SfDateRangePicker/navigationDirection.html) as `DateRangePickerNavigationDirection.vertical` in the `SfDateRangePicker`.`
+
+{% tabs %}
+{% highlight Dart %}
+
+@override
+Widget build(BuildContext context) {
+  return MaterialApp(
+    home: Scaffold(
+        body: SfDateRangePicker(
+      enableMultiView: true,
+      navigationDirection: DateRangePickerNavigationDirection.vertical,
+      viewSpacing: 10,
+    )),
+  );
+}
+
+{% endhighlight %}
+{% endtabs %}
+
+![vertical date picker](images/views/vertical-datepicker.png)
+
 ## See also
 
 [How to switch between the date range picker views in the Flutter date range picker (SfDateRangePicker)?](https://www.syncfusion.com/kb/11305/how-to-switch-between-the-date-range-picker-views-in-flutter-date-range-picker)
 
 [How to get the current view dates in Flutter date range picker (SfDateRangePicker)?](https://www.syncfusion.com/kb/11331/how-to-get-the-current-view-dates-in-flutter-date-range-picker-sfdaterangepicker)
+
+[How to show two pickers vertically in the Flutter date range picker (SfDateRangePicker)](https://www.syncfusion.com/kb/12193/how-to-show-two-pickers-vertically-in-the-flutter-date-range-picker-sfdaterangepicker)
+
+[How to change the number of weeks in the Flutter date range picker (SfDateRangePicker)](https://www.syncfusion.com/kb/12167/how-to-change-the-number-of-weeks-in-the-flutter-date-range-picker-sfdaterangepicker)

@@ -118,9 +118,92 @@ class OrderInfoDataSource extends DataGridSource<OrderInfo> {
 
 ![flutter datapager with datagrid](images/paging/flutter-datapager.png)
 
+## Callbacks
+
+The SfDataPager provides [onPageNavigationStart](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/SfDataPager/onPageNavigationStart.html) and [onPageNavigationEnd](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/SfDataPager/onPageNavigationEnd.html) callbacks to listen the page navigation in widget level. 
+
+Typically, these callbacks are used to show and hide loading indicator.
+
+{% tabs %}
+{% highlight Dart %}
+
+final OrderInfoDataSource _orderInfoDataSource = OrderInfoDataSource();
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: LayoutBuilder(
+      builder: (context, constraints) {
+        return Row(children: [
+          Column(
+            children: [
+              SizedBox(
+                  height: constraints.maxHeight - 60,
+                  width: constraints.maxWidth,
+                  child: buildDataGrid(constraints)),
+              Container(
+                height: 60,
+                width: constraints.maxWidth,
+                child: SfDataPager(
+                  rowsPerPage: 20,
+                  direction: Axis.horizontal,
+                  onPageNavigationStart: (int pageIndex) {
+                    //You can do your customization
+                  },
+                  delegate: _orderInfoDataSource,
+                  onPageNavigationEnd: (int pageIndex) {
+                    //You can do your customization
+                  },
+                ),
+              )
+            ],
+          ),
+        ]);
+      },
+    ),
+  );
+}
+
+Widget buildDataGrid(BoxConstraints constraint) {
+  return SfDataGrid(
+      source: _orderInfoDataSource,
+      columnWidthMode: ColumnWidthMode.fill,
+      columns: <GridColumn>[
+        GridNumericColumn(mappingName: 'orderID', headerText: 'Order ID'),
+        GridTextColumn(
+            mappingName: 'customerID', headerText: 'Customer Name'),
+        GridDateTimeColumn(
+            mappingName: 'orderDate', headerText: 'Order Date'),
+        GridNumericColumn(mappingName: 'freight', headerText: 'Freight'),
+      ]);
+}
+
+class OrderInfoDataSource extends DataGridSource<OrderInfo> {
+  @override
+  Future<bool> handlePageChange(int oldPageIndex, int newPageIndex,
+      int startRowIndex, int rowsPerPage) async {
+    int endIndex = startRowIndex + rowsPerPage;
+    if (endIndex > orderInfos.length) {
+      endIndex = orderInfos.length - 1;
+    }
+
+    await Future.delayed(Duration(milliseconds: 2000));
+
+    paginatedDataSource = List.from(
+        orderInfos.getRange(startRowIndex, endIndex).toList(growable: false));
+    notifyListeners();
+    return true;
+  }
+}
+
+{% endhighlight %}
+{% endtabs %}
+
 ## Asynchronous data loading
 
 You can load the data asynchronously to the `SfDataPager` by overriding the `handlePageChange` method and await the method while loading the data.
+
+You can use `onPageNavigationStart` and `onPageNavigationEnd` callbacks to show and hide the loading indicator when navigating between pages.
 
 In the below example, we have set await for 2000ms and displayed the loading indicator until 2000ms.
 
@@ -142,14 +225,24 @@ Widget build(BuildContext context) {
               SizedBox(
                   height: constraints.maxHeight - 60,
                   width: constraints.maxWidth,
-                  child: loadDataGrid(constraints)),
+                  child: buildStack(constraints)),
               Container(
                 height: 60,
                 width: constraints.maxWidth,
                 child: SfDataPager(
-                  delegate: _orderInfoDataSource,
                   rowsPerPage: 20,
                   direction: Axis.horizontal,
+                  onPageNavigationStart: (int pageIndex) {
+                    setState(() {
+                      showLoadingIndicator = true;
+                    });
+                  },
+                  delegate: _orderInfoDataSource,
+                  onPageNavigationEnd: (int pageIndex) {
+                    setState(() {
+                      showLoadingIndicator = false;
+                    });
+                  },
                 ),
               )
             ],
@@ -160,7 +253,7 @@ Widget build(BuildContext context) {
   );
 }
 
-Widget getDataGrid(BoxConstraints constraint) {
+Widget buildDataGrid(BoxConstraints constraint) {
   return SfDataGrid(
       source: _orderInfoDataSource,
       columnWidthMode: ColumnWidthMode.fill,
@@ -174,12 +267,10 @@ Widget getDataGrid(BoxConstraints constraint) {
       ]);
 }
 
-Widget loadDataGrid(BoxConstraints constraints) {
+Widget buildStack(BoxConstraints constraints) {
   List<Widget> _getChildren() {
     final List<Widget> stackChildren = [];
-    if (paginatedDataSource.isNotEmpty) {
-      stackChildren.add(getDataGrid(constraints));
-    }
+    stackChildren.add(buildDataGrid(constraints));
 
     if (showLoadingIndicator) {
       stackChildren.add(Container(
@@ -212,13 +303,7 @@ class OrderInfoDataSource extends DataGridSource<OrderInfo> {
       endIndex = orderInfos.length - 1;
     }
 
-    // Show the circle progress indicator
-    showLoadingIndicator = true;
-    notifyListeners();
     await Future.delayed(Duration(milliseconds: 2000));
-
-    // hide the circle progress indicator
-    showLoadingIndicator = false;
 
     paginatedDataSource = List.from(
         orderInfos.getRange(startRowIndex, endIndex).toList(growable: false));
@@ -231,6 +316,9 @@ class OrderInfoDataSource extends DataGridSource<OrderInfo> {
 {% endtabs %}
 
 ![flutter datapager with asynchronous loading](images/paging/flutter-datapager-asynchronous-loading.gif)
+
+>**NOTE**  
+  Download demo application from [GitHub](https://github.com/SyncfusionExamples/how-to-show-loading-indicator-on-loading-page-in-flutter-datatable).
 
 ## Orientation
 

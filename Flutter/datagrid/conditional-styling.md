@@ -43,11 +43,10 @@ Widget build(BuildContext context) {
     body: SfDataGrid(
         source: _employeeDataSource,
         columns: <GridColumn>[
-          GridNumericColumn(mappingName: 'id')..headerText = 'Order ID',
-          GridTextColumn(mappingName: 'name')..headerText = 'Name',
-          GridTextColumn(mappingName: 'designation')
-            ..headerText = 'Designation',
-          GridNumericColumn(mappingName: 'salary')..headerText = 'Salary'
+          GridNumericColumn(mappingName: 'id', headerText: 'Order ID'),
+          GridTextColumn(mappingName: 'name', headerText: 'Name'),
+          GridTextColumn(mappingName: 'designation', headerText: 'Designation'),
+          GridNumericColumn(mappingName: 'salary', headerText: 'Salary')
         ],
         onQueryCellStyle: (QueryCellStyleArgs args) {
           if (args.column.mappingName == 'designation') {
@@ -87,15 +86,14 @@ Widget build(BuildContext context) {
     body: SfDataGrid(
         source: _employeeDataSource,
         columns: <GridColumn>[
-          GridNumericColumn(mappingName: 'id')..headerText = 'Order ID',
-          GridTextColumn(mappingName: 'name')..headerText = 'Name',
-          GridTextColumn(mappingName: 'designation')
-            ..headerText = 'Designation',
-          GridNumericColumn(mappingName: 'salary')..headerText = 'Salary',
+          GridNumericColumn(mappingName: 'id', headerText: 'Order ID'),
+          GridTextColumn(mappingName: 'name', headerText: 'Name'),
+          GridTextColumn(mappingName: 'designation', headerText: 'Designation'),
+          GridNumericColumn(mappingName: 'salary', headerText: 'Salary')
         ],
         onQueryCellStyle: (QueryCellStyleArgs args) {
           if (args.column.mappingName == 'id') {
-            if (args.rowIndex % 2 == 0) {
+            if (args.rowIndex % 2 != 0) {
               return DataGridCellStyle(
                   textStyle: TextStyle(fontStyle: FontStyle.italic),
                   backgroundColor: Colors.blueAccent);
@@ -130,11 +128,10 @@ Widget build(BuildContext context) {
     body: SfDataGrid(
         source: _employeeDataSource,
         columns: <GridColumn>[
-          GridNumericColumn(mappingName: 'id')..headerText = 'Order ID',
-          GridTextColumn(mappingName: 'name')..headerText = 'Name',
-          GridTextColumn(mappingName: 'designation')
-            ..headerText = 'Designation',
-          GridNumericColumn(mappingName: 'salary')..headerText = 'Salary',
+          GridNumericColumn(mappingName: 'id', headerText: 'Order ID'),
+          GridTextColumn(mappingName: 'name', headerText: 'Name'),
+          GridTextColumn(mappingName: 'designation', headerText: 'Designation'),
+          GridNumericColumn(mappingName: 'salary', headerText: 'Salary')
         ],
         onQueryRowStyle: (QueryRowStyleArgs args) {
           Employee employee = _employeeCollection[args.rowIndex];
@@ -173,14 +170,13 @@ Widget build(BuildContext context) {
     body: SfDataGrid(
         source: _employeeDataSource,
         columns: <GridColumn>[
-          GridNumericColumn(mappingName: 'id')..headerText = 'Order ID',
-          GridTextColumn(mappingName: 'name')..headerText = 'Name',
-          GridNumericColumn(mappingName: 'salary')..headerText = 'Salary',
-          GridTextColumn(mappingName: 'designation')
-            ..headerText = 'Designation',
+          GridNumericColumn(mappingName: 'id', headerText: 'Order ID'),
+          GridTextColumn(mappingName: 'name', headerText: 'Name'),
+          GridNumericColumn(mappingName: 'salary', headerText: 'Salary'),
+          GridTextColumn(mappingName: 'designation', headerText: 'Designation')
         ],
         onQueryRowStyle: (QueryRowStyleArgs args) {
-          if (args.rowIndex % 2 == 0) {
+          if (args.rowIndex % 2 != 0) {
             return DataGridCellStyle(backgroundColor: Colors.lightGreen[300]);
           }
           return null;

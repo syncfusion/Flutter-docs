@@ -197,8 +197,8 @@ Widget build(BuildContext context) {
     source: _employeeDataSource,
     allowSorting: true,
     columns: [
-      GridNumericColumn(mappingName: 'id', headerText: 'ID')
-        ..allowSorting = false,
+      GridNumericColumn(mappingName: 'id', headerText: 'ID',
+        allowSorting: false),
       GridTextColumn(mappingName: 'name', headerText: 'Name'),
       GridTextColumn(mappingName: 'city', headerText: 'City'),
       GridNumericColumn(mappingName: 'freight', headerText: 'Freight')
@@ -228,8 +228,8 @@ Widget build(BuildContext context) {
     source: _employeeDataSource,
     allowSorting: true,
     columns: [
-      GridNumericColumn(mappingName: 'id', headerText: 'ID')
-        ..headerStyle = DataGridHeaderCellStyle(sortIconColor: Colors.redAccent),
+      GridNumericColumn(mappingName: 'id', headerText: 'ID',
+        headerStyle: DataGridHeaderCellStyle(sortIconColor: Colors.redAccent)),
       GridTextColumn(mappingName: 'name', headerText: 'Name'),
       GridTextColumn(mappingName: 'city', headerText: 'City'),
       GridNumericColumn(mappingName: 'freight', headerText: 'Freight')
@@ -253,14 +253,8 @@ Widget build(BuildContext context) {
   return Scaffold(
       body: SfDataGridTheme(
     data: SfDataGridThemeData(
-        headerStyle: DataGridHeaderCellStyle(
-            sortIconColor: Colors.redAccent,
-            backgroundColor: SfDataGridThemeData(brightness: Brightness.light)
-                .headerStyle
-                .backgroundColor,
-            textStyle: SfDataGridThemeData(brightness: Brightness.light)
-                .headerStyle
-                .textStyle)),
+        headerStyle: 
+            DataGridHeaderCellStyle(sortIconColor: Colors.redAccent)),
     child: SfDataGrid(
       source: _employeeDataSource,
       allowSorting: true,
