@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Getting started with Flutter Funnel Chart widget | Syncfusion
-description: Learn here about getting started with Syncfusion Flutter Funnel Chart (SfFunnelChart) widget, its elements, and more.
+title: Getting started with Flutter Pyramid Chart widget | Syncfusion
+description: Learn here about getting started with Syncfusion Flutter Pyramid Chart (SfPyramidChart) widget, its elements, and more.
 platform: flutter
 control: Chart
 documentation: ug
 ---
 
-# Getting started with Flutter Funnel Chart (SfFunnelChart)
+# Getting started with Flutter Pyramid Chart (SfPyramidChart)
 
 This section explains the steps required to populate the chart with data, title, data labels, legend, and tooltips. This section covers only the minimal features needed to know to get started with the chart.
 
@@ -32,7 +32,7 @@ Add the Syncfusion Flutter Chart dependency to your pub spec file.
 
 {% endhighlight %}
 
-N>  Here **xx.x.xx** denotes the current version of [`Syncfusion Flutter Charts`](https://pub.dev/packages/syncfusion_flutter_charts/versions) package.
+N> Here **xx.x.xx** denotes the current version of [`Syncfusion Flutter Charts`](https://pub.dev/packages/syncfusion_flutter_charts/versions) package.
 
 **Get packages**
 
@@ -56,7 +56,7 @@ Import the following package in your Dart code.
 
 ## Initialize chart
 
-Once the package has been imported, initialize the chart as a child of any widget. SfFunnelChart can be used to render Funnel charts. Here, as we are rendering Funnel chart, initialize SfFunnelChart widget as a child of Container widget.
+Once the package has been imported, initialize the chart as a child of any widget. SfPyramidChart can be used to render pyramid charts. Here, as we are rendering pyramid chart, initialize SfPyramidChart widget as a child of Container widget.
 
 {% highlight dart %} 
 
@@ -66,7 +66,7 @@ Once the package has been imported, initialize the chart as a child of any widge
             body: Center(
                 child: Container(
                     //Initialize chart
-                    child: SfFunnelChart()
+                    child: SfPyramidChart()
                 )
             )
         );
@@ -74,28 +74,27 @@ Once the package has been imported, initialize the chart as a child of any widge
 
 {% endhighlight %}
 
-N>: An empty chart will be displayed. This is the charts default behavior. 
+_note_ : An empty chart will be displayed.This is charts default behavior. 
 
 ## Bind data source
 
-Based on your data, initialize the series type. In the series, you need to map the data source and the fields for x and y data points. Here, Funnel series is rendered that is demonstrated in the following code snippet.
+Based on your data, initialize the series type. In the series, you need to map the data source and the fields for x and y data points. Here, pyramid series is rendered that is demonstrated in the following code snippet.
 
 {% highlight dart %} 
 
     @override
     Widget build(BuildContext context) {
         final List<ChartData> chartData = [
-            ChartData('Jan', 35),
-            ChartData('Feb', 28),
-            ChartData('Mar', 34),
-            ChartData('Apr', 32),
-            ChartData('May', 40)
+            ChartData('David', 25),
+            ChartData('Steve', 38),
+            ChartData('Jack', 34),
+            ChartData('Others', 52)
         ];
         return Scaffold(
             body: Center(
                 child: Container(
-                    child: SfFunnelChart(
-                      series:FunnelSeries<ChartData, String>(
+                    child: SfPyramidChart(
+                      series:PyramidSeries<ChartData, String>(
                             dataSource: chartData,
                             xValueMapper: (ChartData data, _) => data.x,
                             yValueMapper: (ChartData data, _) => data.y
@@ -119,7 +118,7 @@ Based on your data, initialize the series type. In the series, you need to map t
 
 ## Add title
 
-You can add a [`title`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfFunnelChart/title.html) to the chart to provide quick information to users about the data plotted in the chart. The title to chart can be set as demonstrated in the following code snippet.
+You can add a [`title`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfPyramidChart/title.html) to the chart to provide quick information to users about the data plotted in the chart. The title to chart can be set as demonstrated in the following code snippet.
 
 {% highlight dart %} 
 
@@ -128,10 +127,10 @@ You can add a [`title`](https://pub.dev/documentation/syncfusion_flutter_charts/
         return Scaffold(
             body: Center(
                 child: Container(
-                    child: SfFunnelChart(
+                    child: SfPyramidChart(
                       // Chart title text
                       title: ChartTitle(text: 'Half yearly sales analysis'),
-                      series:FunnelSeries<ChartData, String>(
+                      series:PyramidSeries<ChartData, String>(
                             dataSource: chartData,
                             xValueMapper: (ChartData data, _) => data.x,
                             yValueMapper: (ChartData data, _) => data.y
@@ -148,7 +147,7 @@ You can add a [`title`](https://pub.dev/documentation/syncfusion_flutter_charts/
 
 ## Enable data labels
 
-You can add data labels to improve the readability of the chart using the [`dataLabelSettings`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/FunnelSeries/dataLabelSettings.html) property.
+You can add data labels to improve the readability of the chart using the [`dataLabelSettings`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/PyramidSeries/dataLabelSettings.html) property.
 
 {% highlight dart %} 
 
@@ -157,8 +156,8 @@ You can add data labels to improve the readability of the chart using the [`data
         return Scaffold(
             body: Center(
                 child: Container(
-                    child: SfFunnelChart(
-                      series:FunnelSeries<ChartData, String>(
+                    child: SfPyramidChart(
+                      series:PyramidSeries<ChartData, String>(
                             dataSource: chartData,
                             xValueMapper: (ChartData data, _) => data.x,
                             yValueMapper: (ChartData data, _) => data.y,
@@ -179,7 +178,7 @@ You can add data labels to improve the readability of the chart using the [`data
 
 The legend provides information about the series rendered in the chart.
 
-You can use legend in chart by setting the [`isVisible`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/isVisible.html) property to true in [`SfFunnelChart.legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend-class.html).
+You can use legend in chart by setting the [`isVisible`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/isVisible.html) property to true in [`SfPyramidChart.legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend-class.html).
 
 {% highlight dart %} 
 
@@ -188,10 +187,10 @@ You can use legend in chart by setting the [`isVisible`](https://pub.dev/documen
         return Scaffold(
             body: Center(
                 child: Container(
-                    child: SfFunnelChart(
+                    child: SfPyramidChart(
                       // Enables the legend
                       legend: Legend(isVisible: true), 
-                      series:FunnelSeries<ChartData, String>(
+                      series:PyramidSeries<ChartData, String>(
                             dataSource: chartData,
                             xValueMapper: (ChartData data, _) => data.x,
                             yValueMapper: (ChartData data, _) => data.y,
@@ -210,7 +209,7 @@ You can use legend in chart by setting the [`isVisible`](https://pub.dev/documen
 
 The tooltip is used when you cannot display information using the data labels due to space constraints.
 
-The [`tooltipBehavior`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfFunnelChart/tooltipBehavior.html) property in chart is used to enable and customize the tooltip for the Funnel series. The tooltip is enabled as demonstrated in the following code snippet.
+The [`tooltipBehavior`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfPyramidChart/tooltipBehavior.html) property in chart is used to enable and customize the tooltip for the pyramid series. The tooltip is enabled as demonstrated in the following code snippet.
 
 {% highlight dart %} 
     
@@ -218,7 +217,7 @@ The [`tooltipBehavior`](https://pub.dev/documentation/syncfusion_flutter_charts/
 
     @override
     void initState(){
-        _tooltipBehavior = TooltipBehavior(enable: true);
+        _tooltipBehavior = TooltipBehavior(            enable: true);
         super.initState();
     }
 
@@ -230,10 +229,10 @@ The [`tooltipBehavior`](https://pub.dev/documentation/syncfusion_flutter_charts/
             ),
             body: Center(
                 child: Container(
-                    child: SfFunnelChart(
+                    child: SfPyramidChart(
                       // Enables the tooltip for all the series in chart
                         tooltipBehavior: _tooltipBehavior,
-                        series:FunnelSeries<ChartData, String>(
+                        series:PyramidSeries<ChartData, String>(
                             dataSource: chartData,
                             xValueMapper: (ChartData data, _) => data.x,
                             yValueMapper: (ChartData data, _) => data.y,
@@ -248,4 +247,4 @@ The [`tooltipBehavior`](https://pub.dev/documentation/syncfusion_flutter_charts/
 
 ![Tooltip in chart](images/getting-started/tooltip.png)
 
-You can find the complete getting started sample from this [`link`](https://www.syncfusion.com/downloads/support/directtrac/general/ze/chart_example2131351808).
+You can find the complete getting started example  from this [`link`](https://www.syncfusion.com/downloads/support/directtrac/general/ze/chart_example2131351808).

@@ -1,22 +1,22 @@
 ---
 layout: post
-title: Callbacks in Flutter Pyramid Chart widget | Syncfusion 
-description: Learn here all about Callbacks feature of Syncfusion Flutter Pyramid Chart (SfPyramidChart) widget and more.
+title: Callbacks in Flutter Funnel Chart widget | Syncfusion 
+description: Learn here all about Callbacks feature of Syncfusion Flutter Funnel Chart (SfFunnelChart) widget and more.
 platform: flutter
 control: Chart
 documentation: ug
 ---
 
-# Callbacks in Flutter Pyramid Chart (SfPyramidChart)
+# Callbacks in Flutter Funnel Chart (SfFunnelChart)
 
-The below Callbacks are for Pyramid chart.
+The below Callbacks are for Funnel chart.
 
 ## onLegendItemRender
 
-Triggers when the legend item is rendering. Here, you can customize the legendâ€™s text, and shape.  The [`onLegendItemRender`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfPyramidChart/onLegendItemRender.html) Callback contains the following arguments.
+Triggers when the legend item is rendering. Here, you can customize the legendâ€™s text, and shape.  The [`onLegendItemRender`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfFunnelChart/onLegendItemRender.html) Callback contains the following arguments.
 
 * [`text`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendRenderArgs/text.html) - specifies the content of the legend.
-* [`pointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendRenderArgs/pointIndex.html) - specifies the current point index that is applicable for Pyramid chart type alone.
+* [`pointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendRenderArgs/pointIndex.html) - specifies the current point index that is applicable for Funnel chart type alone.
 * [`seriesIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendRenderArgs/seriesIndex.html) - specifies the current series index.
 * [`legendIconType`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendRenderArgs/legendIconType.html) - specifies the shape of the legend.
 * [`color`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendRenderArgs/color.html) - to get and set the color of the legend icon.
@@ -28,7 +28,7 @@ Triggers when the legend item is rendering. Here, you can customize the legendâ€
     
       return Scaffold(
         body: Center(
-          child: SfPyramidChart(
+          child: SfFunnelChart(
             legend: Legend(isVisible: true),
             onLegendItemRender: (LegendRenderArgs args){
               args.text = 'Legend Text';
@@ -43,7 +43,7 @@ Triggers when the legend item is rendering. Here, you can customize the legendâ€
 
 ## onTooltipRender
 
-Triggers while tooltip is rendering. Here, you can customize the text, header, x and y-positions. The [`onTooltipRender`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfPyramidChart/onTooltipRender.html) Callback contains the following arguments.
+Triggers while tooltip is rendering. Here, you can customize the text, header, x and y-positions. The [`onTooltipRender`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfFunnelChart/onTooltipRender.html) Callback contains the following arguments.
 
 * [`text`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TooltipArgs/text.html) - specifies the content of the tooltip.
 * [`header`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/TooltipArgs/header.html) - specifies the header content of the tooltip.
@@ -60,7 +60,7 @@ Triggers while tooltip is rendering. Here, you can customize the text, header, x
 
     @override
     void initState(){
-      _tooltipBehavior = TooltipBehavior(enable: true);
+        _tooltipBehavior = TooltipBehavior(enable: true);
       super.initState();
     }
 
@@ -69,7 +69,7 @@ Triggers while tooltip is rendering. Here, you can customize the text, header, x
     
       return Scaffold(
         body: Center(
-          child: SfPyramidChart(
+          child: SfFunnelChart(
             onTooltipRender: (TooltipArgs args){
               args.text = 'Custom Text';
             },
@@ -83,14 +83,14 @@ Triggers while tooltip is rendering. Here, you can customize the text, header, x
 
 ## onDataLabelRender
 
-Triggers when data label is rendering. Text and text styles such as color, font size, and font weight can be customized. The [`onDataLabelRender`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfPyramidChart/onDataLabelRender.html) Callback contains the following arguments.
+Triggers when data label is rendering. Text and text styles such as color, font size, and font weight can be customized. The [`onDataLabelRender`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfFunnelChart/onDataLabelRender.html) Callback contains the following arguments.
 
 * [`text`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelRenderArgs/text.html) - specifies the content of the data label.
 * [`textStyle`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelRenderArgs/textStyle.html) - used to change the text color, size, font family, font style, and font weight.
 * [`pointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelRenderArgs/pointIndex.html) - specifies the current point index.
 * [`seriesRenderer`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelRenderArgs/seriesRenderer.html) - specifies current series.
 * [`viewportPointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelRenderArgs/viewportPointIndex.html) - to get the viewport index value of the tapped data label.
-* [`color`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelRenderArgs/color.html) - to get and set the color of data label.
+
 
 {% highlight dart %}
 
@@ -99,11 +99,11 @@ Triggers when data label is rendering. Text and text styles such as color, font 
     
       return Scaffold(
         body: Center(
-          child: SfPyramidChart(
+          child: SfFunnelChart(
             onDataLabelRender:(DataLabelRenderArgs args){
               args.text = 'Data label';
             },
-            series: PyramidSeries<ChartData, String>(
+            series: FunnelSeries<ChartData, String>(
               dataLabelSettings: DataLabelSettings(
                   isVisible: true
               )
@@ -117,10 +117,10 @@ Triggers when data label is rendering. Text and text styles such as color, font 
 
 ## onLegendTapped
 
-Triggers when tapping the legend item. The [`onLegendTapped`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfPyramidChart/onLegendTapped.html) Callback contains the following arguments.
+Triggers when tapping the legend item. The [`onLegendTapped`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfFunnelChart/onLegendTapped.html) Callback contains the following arguments.
 
 * [`seriesIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendTapArgs/seriesIndex.html) - specifies the current series index.
-* [`pointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendTapArgs/pointIndex.html) - specifies the current point index that is applicable for Pyramid series.
+* [`pointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendTapArgs/pointIndex.html) - specifies the current point index that is applicable for Funnel series.
 * [`series`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendTapArgs/series.html) - specifies the current series.
 
 
@@ -131,7 +131,7 @@ Triggers when tapping the legend item. The [`onLegendTapped`](https://pub.dev/do
     
       return Scaffold(
         body: Center(
-          child: SfPyramidChart(
+          child: SfFunnelChart(
             onLegendTapped: (LegendTapArgs args) {
               print(args.seriesIndex);
             },
@@ -144,7 +144,7 @@ Triggers when tapping the legend item. The [`onLegendTapped`](https://pub.dev/do
 
 ## onSelectionChanged
 
-Triggers while selection changes. Here you can customize the selectedColor, unselectedColor, selectedBorderColor, selectedBorderWidth, unselectedBorderColor, and unselectedBorderWidth properties. The [`onSelectionChanged`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfPyramidChart/onSelectionChanged.html) Callback contains the following arguments.
+Triggers while selection changes. Here you can customize the selectedColor, unselectedColor, selectedBorderColor, selectedBorderWidth, unselectedBorderColor, and unselectedBorderWidth properties. The [`onSelectionChanged`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfFunnelChart/onSelectionChanged.html) Callback contains the following arguments.
 
 * [`seriesRenderer`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionArgs/series.html) - specifies current series.
 * [`seriesIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionArgs/pointIndex.html) - specifies the current series index.
@@ -155,16 +155,16 @@ Triggers while selection changes. Here you can customize the selectedColor, unse
 * [`selectedBorderWidth`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionArgs/selectedBorderWidth.html) - specifies border width of the selected data points or series.
 * [`unselectedBorderColor`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionArgs/unselectedBorderColor.html) - specifies border color of the unselected data points or series.
 * [`unselectedBorderWidth`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionArgs/unselectedBorderWidth.html) - specifies border width of the unselected data points or series.
-* [`viewportPointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionArgs/viewportPointIndex.html) - to get the viewport index value of the tapped data label
+* [`viewportPointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SelectionArgs/viewportPointIndex.html) - to get the overall point index.
 
 {% highlight dart %}
     
-    late electionBehavior _selectionBehavior;
+    late SelectionBehavior _selectionBehavior;
 
     @override
     void initState(){
       _selectionBehavior = SelectionBehavior(
-                enable: true);
+               enable: true);              
       super.initState();
     }
 
@@ -173,12 +173,12 @@ Triggers while selection changes. Here you can customize the selectedColor, unse
     
       return Scaffold(
         body: Center(
-          child: SfPyramidChart(
+          child: SfFunnelChart(
           onSelectionChanged: (SelectionArgs args){
               args.selectedColor = Colors.red;
               args.unselectedColor = Colors.lightGreen;
             },
-            series: PyramidSeries<ChartData, String>(
+            series: FunnelSeries<ChartData, String>(
                 selectionBehavior: _selectionBehavior
             )
           )
@@ -190,12 +190,12 @@ Triggers while selection changes. Here you can customize the selectedColor, unse
 
 ## onDataLabelTapped
 
-Triggers when tapping on the data label of the data point in the series. The [`onDataLabelTapped`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfPyramidChart/onDataLabelTapped.html) Callback contains the following arguments.
+Triggers when tapping on the data label of the data point in the series. The [`onDataLabelTapped`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfFunnelChart/onDataLabelTapped.html) Callback contains the following arguments.
 
 * [`position`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelTapDetails/position.html) - specifies the position of the tapped data label in logical pixels.
-* [`seriesIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelTapDetails/seriesIndex.html) - specifies the series index of the tapped data label
-* [`pointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelTapDetails/pointIndex.html) - specifies the point index of the tapped data label.
-* [`text`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelTapDetails/text.html) - specifies the content of the tapped data label.
+* [`seriesIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelTapDetails/seriesIndex.html) - Specifies the series index of the tapped data label
+* [`pointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelTapDetails/pointIndex.html) - Specifies the point index of the tapped data label.
+* [`text`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelTapDetails/text.html) - Specifies the content of the tapped data label.
 * [`dataLabelSettings`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelTapDetails/dataLabelSettings.html) - to get the data label customization options specified in that particular series.
 * [`viewportPointIndex`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/DataLabelTapDetails/viewportPointIndex.html) - to get the viewport index value of the tapped data label.
 
@@ -203,20 +203,18 @@ N> This callback will not be called, when the builder is specified for data labe
 
 {% highlight dart %}
 
-    @override
     Widget build(BuildContext context) {
       return Container(
         child: SfFunnelChart(
           onDatalabelTapped: (DataLabelTapArgs args) {
             print(args.seriesIndex);                 
           },
-          series: PyramidSeries<Sample, DateTime>(
+          series: FunnelSeries<Sample, DateTime>(
               dataSource: sample,
               xValueMapper: (Sample sales, _) => sales.x,
               yValueMapper: (Sample sales, _) => sales.y,
               dataLabelSettings: DataLabelSettings(
-                isVisible:true
-              ),
+                isVisible: true),
           )
         )
       );
