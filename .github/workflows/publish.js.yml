@@ -39,8 +39,8 @@ jobs:
       run: |
           git diff --name-only HEAD^ HEAD
         
-    - name: Publish
-      run: npm run publish
+    #- name: Publish
+    # run: npm run publish
       env:
          GIT_USER: ${{ secrets.WEB_GITLAB_USER }}
          GIT_TOKEN: ${{ secrets.WEB_GITLAB_TOKEN }}
