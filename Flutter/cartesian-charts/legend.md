@@ -1,15 +1,15 @@
 ---
 layout: post
-title: Legend in Flutter Circular Charts widget | Syncfusion 
-description: Learn here all about Legend feature of Syncfusion Flutter Circular Charts (SfCircularChart) widget and more.
+title: Legend in Flutter Cartesian Charts widget | Syncfusion 
+description: Learn here all about Legend feature of Syncfusion Flutter Cartesian Charts (SfCartesianChart) widget and more.
 platform: flutter
 control: Chart
 documentation: ug
 ---
 
-# Legend in Flutter Circular Charts (SfCircularChart)
+# Legend in Flutter Cartesian Charts (SfCartesianChart)
 
-The [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCircularChart/legend.html) contains list of data points in chart. The information provided in each legend item helps to identify the corresponding data points in chart.
+The [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCartesianChart/legend.html) contains list of chart series/data points in chart. The information provided in each legend item helps to identify the corresponding data series in chart.
 
 {% highlight dart %} 
 
@@ -18,11 +18,12 @@ The [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/ch
       return Scaffold(
         body: Center(
           child: Container(
-              child:SfCircularChart(
+              child:SfCartesianChart(
+                primaryXAxis: DateTimeAxis(),
                 // Enables the legend
                 legend: Legend(isVisible: true),
-                series: <CircularSeries>[
-                  PieSeries<ChartData, String>(
+                series: <LineSeries>[
+                  LineSeries<ChartData, DateTime>(
                     dataSource: chartData,
                     xValueMapper: (ChartData data, _) => data.x,
                     yValueMapper: (ChartData data, _) => data.y
@@ -34,13 +35,19 @@ The [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/ch
         );
       }
 
+      class ChartData {
+          ChartData(this.x, this.y);
+          final DateTime x;
+          final double? y;
+      }
+
 {% endhighlight %}
 
-![Legend](images/legend/default_legend.jpg)
+![Legend](images/legend/legend.png)
 
 ## Customizing legend 
 
-The [`name`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/CircularSeries/name.html) property of [`CircularSeries`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/CircularSeries-class.html) is used to define the label for the corresponding series legend item and for [`CircularSeries`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/CircularSeries-class.html) type chart by default values mapped with [`xValueMapper`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/CircularSeries/xValueMapper.html) will be displayed. The appearance of the label can be customized using the below properties.
+The [`name`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/CartesianSeries/name.html) property of [`CartesianSeries`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/CartesianSeries-class.html) is used to define the label for the corresponding series legend item .The appearance of the label can be customized using the below properties.
 * [`borderWidth`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/borderWidth.html) - used to change the stroke width of the legend shape.
 * [`borderColor`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/borderColor.html) - used to change the stroke color of the legend shape.
 * [`backgroundColor`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/backgroundColor.html) - used to change the background color of legend shape.
@@ -51,6 +58,12 @@ The [`name`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/char
 * [`borderWidth`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/borderWidth.html) - used to change the stroke width of the legend icon shape.
 * [`iconBorderColor`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/iconBorderColor.html) - used to change the stroke color of the legend icon shape.
 * [`itemPadding`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/itemPadding.html) - used to add padding between the first legend text and the second legend icon shape.
+* [`height`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/height.html) - the height of the legend.
+* [`width`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/width.html) - the width of the legend.
+* [`isResponsive`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/isResponsive.html) - toggles the visibility of the legend. If the width or height of the legend is greater than the plot area bounds.
+* [`iconBorderWidth`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/iconBorderWidth.html) - border width of the icon in the legend items. Used to change the stroke width of the legend icon shape.
+* [`overflowMode`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/overflowMode.html) - overflow legend items.
+
 
 {% highlight dart %} 
 
@@ -59,15 +72,18 @@ The [`name`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/char
       return Scaffold(
         body: Center(
           child: Container(
-            child:SfCircularChart(
+            child:SfCartesianChart(
+              primaryXAxis: DateTimeAxis(),
               legend: Legend(
                 isVisible: true,
+                name:legend,
                 // Border color and border width of legend
                 borderColor: Colors.black,
                 borderWidth: 2
               ),
-              series: <CircularSeries>[
-                PieSeries<ChartData, String>(
+              series: <CartesianSeries>[
+                LineSeries<ChartData, DateTime>(
+                  name:'line-series',
                   dataSource: chartData,
                   xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y
@@ -79,13 +95,19 @@ The [`name`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/char
       );
     }
 
+     class ChartData {
+        ChartData(this.x, this.y);
+        final DateTime x;
+        final double? y;
+      }
+
 {% endhighlight %}
 
-![Customized Legend](images/legend/customized_legend.jpg)
+![Customized Legend](images/legend/customized_legend.png)
 
 ## Legend title
 
-The following properties can be used to define and customize the [`title`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/title.html) of [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCircularChart/legend.html).
+The following properties can be used to define and customize the [`title`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/title.html) of [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCartesianChart/legend.html).
 
 * [`text`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendTitle/text.html) - used to change the text of the title.
 * [`textStyle`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/textStyle.html) - used to change the text color, size, font family, fontStyle, and font weight.
@@ -93,7 +115,7 @@ The following properties can be used to define and customize the [`title`](https
 * [`textStyle.fontFamily`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/textStyle.html) - used to change the font family for legend text. 
 * [`textStyle.fontStyle`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/textStyle.html) - used to change the font style for the legend text.
 * [`textStyle.fontSize`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/textStyle.html) - used to change the font size for the legend text.
-* [`alignment`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/alignment.html) - used to change the alignment of the title text. It can be near, center, or far.
+* [`alignment`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/textStyle.html) - used to change the alignment of the title text, it can be near, center, or far.
 
 {% highlight dart %} 
 
@@ -102,7 +124,8 @@ The following properties can be used to define and customize the [`title`](https
       return Scaffold(
         body: Center(
             child: Container(
-                child:SfCircularChart(
+                child:SfCartesianChart(
+                primaryXAxis: DateTimeAxis(),
                 legend: Legend(
                     isVisible: true,
                     // Legend title
@@ -115,15 +138,15 @@ The following properties can be used to define and customize the [`title`](https
                       fontWeight: FontWeight.w900
                     )
                   ),
-                series: <CircularSeries>[
-                  PieSeries<ChartData, String>(
+                ),
+                series: <CartesianSeries>[
+                  LineSeries<ChartData, DateTime>(
                     dataSource: chartData,
                     xValueMapper: (ChartData data, _) => data.x,
                     yValueMapper: (ChartData data, _) => data.y
               ),
-                series: <CircularSeries>[
-                  PieSeries<ChartData, String>(
-                    dataSource: chartData,
+                  LineSeries<ChartData, DateTime>(
+                    dataSource: chartData1,
                     xValueMapper: (ChartData data, _) => data.x,
                     yValueMapper: (ChartData data, _) => data.y
                 )
@@ -134,9 +157,15 @@ The following properties can be used to define and customize the [`title`](https
       );
     }
 
+     class ChartData {
+        ChartData(this.x, this.y);
+        final DateTime x;
+        final double? y;
+      }
+
 {% endhighlight %}
 
-![Legend title](images/legend/legend_title.jpg)
+![Legend title](images/legend/legend_tittle.png)
 
 ## Toggles the series visibility
 
@@ -149,14 +178,15 @@ You can control the visibility of the series by tapping the legend item. You can
       return Scaffold(
         body: Center(
           child: Container(
-            child:SfCircularChart(
+            child:SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
               legend: Legend(
                 isVisible: true,
                 // Toogles the series visibility on tapping the legend item
                 toggleSeriesVisibility: true
               ),
-              series: <CircularSeries>[
-                PieSeries<ChartData, String>(
+              series: <CartesianSeries>[
+                LineeSeries<ChartData, String>(
                   dataSource: chartData,
                   xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y
@@ -168,11 +198,17 @@ You can control the visibility of the series by tapping the legend item. You can
       );
     }
 
+     class ChartData {
+        ChartData(this.x, this.y);
+        final String x;
+        final double? y;
+      }
+
 {% endhighlight %}
 
 ## Legend visibility
 
-The [`isVisible`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/isVisible.html) property of [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCircularChart/legend.html) is used to toggle the visibility of legend.
+The [`isVisible`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/isVisible.html) property of [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCartesianChart/legend.html) is used to toggle the visibility of legend.
 
 {% highlight dart %} 
 
@@ -181,13 +217,14 @@ The [`isVisible`](https://pub.dev/documentation/syncfusion_flutter_charts/latest
       return Scaffold(
         body: Center(
           child: Container(
-            child:SfCircularChart(
+            child:SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
               legend: Legend(
                 // Visibility of legend
                 isVisible: false
               ),
-              series: <CircularSeries>[
-                PieSeries<ChartData, String>(
+              series: <CartesianSeries>[
+                LineSeries<ChartData, String>(
                   dataSource: chartData,
                   xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y
@@ -199,7 +236,59 @@ The [`isVisible`](https://pub.dev/documentation/syncfusion_flutter_charts/latest
       );
     }
 
+    class ChartData {
+        ChartData(this.x, this.y);
+        final String x;
+        final double? y;
+      }
+
 {% endhighlight %}
+
+## Legend item visibility
+
+You can control the visibility of a particular series legend item using the [`isVisibleInLegend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/CartesianSeries/isVisibleInLegend.html) property of series. The default value of the [`isVisibleInLegend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/CartesianSeries/isVisibleInLegend.html) property is true. If it is set to false, then the legend item for this specific series will not be displayed in the legend.
+
+{% highlight dart %} 
+
+    @override
+    Widget build(BuildContext context) {
+      return Scaffold(
+        body: Center(
+          child: Container(
+            child: SfCartesianChart(
+              legend: Legend(
+                isVisible: true
+              ),
+              primaryXAxis: CategoryAxis(),
+              series: <ColumnSeries>[
+                ColumnSeries<ChartData, String>(                  
+                  dataSource: chartData,
+                  xValueMapper: (ChartData data, _) => data.x,
+                  yValueMapper: (ChartData data, _) => data.y
+                ),
+                ColumnSeries<ChartData, String>(
+                  // Hiding the legend item for this series
+                  isVisibleInLegend: false,
+                  dataSource: chartData1,
+                  xValueMapper: (ChartData data, _) => data.x,
+                  yValueMapper: (ChartData data, _) => data.y
+                )
+              ]
+            )
+          )
+        )
+      );
+    }
+
+    class ChartData {
+        ChartData(this.x, this.y);
+        final String x;
+        final double? y;
+      }
+
+{% endhighlight %}
+
+![Legend isVisibleInLegend](images/legend/toggle_visibility.jpg)
 
 ## Legend overflow
 
@@ -212,14 +301,15 @@ The legend items can be placed in multiple rows or scroll can be enabled using t
       return Scaffold(
         body: Center(
           child: Container(
-            child: SfCircularChart(
+            child: SfCartesianChart(
+              primaryXAxis: DateTimeAxis(),
               legend: Legend(
                 isVisible: true,
                 // Overflowing legend content will be wraped
                 overflowMode: LegendItemOverflowMode.wrap
               ),
-              series: <CircularSeries>[
-                PieSeries<ChartData, String>(
+              series: <CartesianSeries>[
+                LineSeries<ChartData, DateTime>(
                   dataSource: chartData,
                   xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y
@@ -231,17 +321,23 @@ The legend items can be placed in multiple rows or scroll can be enabled using t
       );
     }
 
+    class ChartData {
+        ChartData(this.x, this.y);
+        final DateTime x;
+        final double? y;
+      }
+
 {% endhighlight %}
 
-![Legend](images/legend/overflow_wrap.jpg)
+![Legend](images/legend/overflow_wrap.png)
 
 
 ## Positioning the legend
 
-You can change the position of the legend inside the chart. The following properties are used to customize the position of legend. **auto** position will place the legend at the right, if the chart's width is greater than the chart's height. Else the legend will be placed at the bottom position.
+You can change the position of the legend inside the chart. The following properties can be used to customize the position of legend. auto position will place the legend at the right, if the chart's width is greater than the chart's height. Else the legend will be placed at the bottom position.
 
 * [`position`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendPosition-class.html) - used to position the legend relatively. The available options are auto, bottom, left, right, and top. Defaults to `auto`.
-* [`orientation`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/orientation.html) - used to change the orientation of the legend, the default value is `auto`. Also you can set this to [`horizontal`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendItemOrientation-class.html) or [`vertical`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendItemOrientation-class.html).
+* [`orientation`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/orientation.html) - used to change the orientation of the legend, the default value is auto. Also you can set [`horizontal`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendItemOrientation-class.html) or [`vertical`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/LegendItemOrientation-class.html).
 
 {% highlight dart %} 
 
@@ -250,14 +346,15 @@ You can change the position of the legend inside the chart. The following proper
       return Scaffold(
         body: Center(
           child: Container(
-            child: SfCircularChart(
+            child: SfCartesianChart(
+              primaryXAxis: DateTimeAxis(),
               legend: Legend(
                 isVisible: true,
                 // Legend will be placed at the left
                 position: LegendPosition.left
               ),
-              series: <CircularSeries>[
-                PieSeries<ChartData, String>(
+              series: <CartesianSeries>[
+                AreaSeries<ChartData, DateTime>(
                   dataSource: chartData,
                   xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y
@@ -269,9 +366,15 @@ You can change the position of the legend inside the chart. The following proper
       );
     }
 
+    class ChartData {
+        ChartData(this.x, this.y);
+        final DateTime x;
+        final double? y;
+      }
+
 {% endhighlight %}
 
-![Legend](images/legend/legend_position.jpg)
+![Legend](images/legend/legend_position.png)
 
 ## Floating legend
 
@@ -283,15 +386,16 @@ Also, the legend will not take a dedicated position for it and will be drawn on 
     @override
     Widget build(BuildContext context) {
       return Scaffold(
-        body: Center(
-          child: Container(
-            child: SfCircularChart(
-              legend: Legend(
-                isVisible: true,
-                // Legend will placed at the specified offset
-                offset: Offset(20, 40)),
-              series: <PieSeries>[
-              PieSeries<ChartData, String>(
+          body: Center(
+              child: Container(
+                  child: SfCartesianChart(
+                      primaryXAxis: DateTimeAxis(),
+                      legend: Legend(
+                          isVisible: true,
+                          // Legend will placed at the specified offset
+                          offset: Offset(20, 40)),
+                     series: <CartesianSeries>[
+            AreaSeries<ChartData, DateTime>(
                 dataSource: chartData,
                 xValueMapper: (ChartData data, _) => data.x,
                 yValueMapper: (ChartData data, _) => data.y),
@@ -300,16 +404,18 @@ Also, the legend will not take a dedicated position for it and will be drawn on 
 
     class ChartData {
         ChartData(this.x, this.y);
-        final String x;
+        final DateTime x;
         final double? y;
     }
 
 
 {% endhighlight %}
 
+![Floating legend](images/legend/floating-legend.jpg)
+
 ## Legend item template
 
-You can customize the appearance of legend items with your template by using [`legendItemBuilder`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/legendItemBuilder.html) property of [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCircularChart/legend.html). Here you can specify the content that needs to be displayed in the legend text as widget.
+You can customize the appearance of legend items with your template by using [`legendItemBuilder`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/Legend/legendItemBuilder.html) property of [`legend`](https://pub.dev/documentation/syncfusion_flutter_charts/latest/charts/SfCartesianChart/legend.html). Here you can specify the content that needs to be displayed in the legend text as widget.
 
 {% highlight dart %} 
 
@@ -318,20 +424,20 @@ You can customize the appearance of legend items with your template by using [`l
       return Scaffold(
         body: Center(
           child: Container(
-            child: SfCircularChart(
+            child: SfCartesianChart(
+              primaryXAxis: CategoryAxis(),
               legend: Legend(
                 isVisible: true,
                 // Templating the legend item
                 legendItemBuilder: (String name, dynamic series, dynamic point, int index) {
                   return Container(
-                    height: 20,
-                    width: 10,
-                    child: Container(child: Text(point.y.toString()))
+                    child: Container(
+                      child: Text('template'))
                   );
                 }
               ),
-              series: <CircularSeries>[
-                PieSeries<ChartData, String>(
+              series: <CartesianSeries>[
+                AreaSeries<ChartData, String>(
                   dataSource: chartData,
                   xValueMapper: (ChartData data, _) => data.x,
                   yValueMapper: (ChartData data, _) => data.y
@@ -343,6 +449,12 @@ You can customize the appearance of legend items with your template by using [`l
       );
     }
 
+    class ChartData {
+        ChartData(this.x, this.y);
+        final String x;
+        final double? y;
+      }
+
 {% endhighlight %}
 
-![Legend](images/legend/legend_template.jpg)
+N> `chartData` in the above code snippets is a class type list and holds the data for binding to the chart series. Refer [Bind data source](https://help.syncfusion.com/flutter/cartesian-charts/getting-started#bind-data-source) topic for more details.
