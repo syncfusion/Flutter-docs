@@ -73,8 +73,11 @@ Widget build(BuildContext context) {
 {% endhighlight %}
 {% endtabs %}
 
+>**NOTE**
+* For recurrence appointment, the tap details will always return as `Appointment`, even for the custom business object.
+
 ## Long press callback
-The [onLongPress](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/SfCalendar/onLongPress.html) callback called whenever the `SfCalendar` elements long pressed on view.
+The [onLongPress](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/SfCalendar/onLongPress.html) callback is called, whenever the `SfCalendar` elements are long pressed on view.
 
 The long-pressed date, appointments, and element details when the long-press action performed on element available in the [CalendarLongPressDetails](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/CalendarLongPressDetails-class.html).
 
@@ -104,10 +107,10 @@ Widget build(BuildContext context) {
 {% endhighlight %}
 {% endtabs %}
 
+>**NOTE**
+* For recurrence appointment, the long pressed details will always return as `Appointment`, even for the custom business object.
+
 ## See also
-
-[How to get visible dates details from the flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/11026/how-to-get-visible-dates-details-from-the-flutter-event-calendar-sfcalendar)
-
-[How to get Datetime details while tapping the Flutter event calendar elements](https://www.syncfusion.com/kb/10998/how-to-get-datetime-details-while-tapping-the-flutter-event-calendar-elements)
-
-[How to handle the long press action on date selection in the Flutter event calendar (SfCalendar)?](https://www.syncfusion.com/kb/12121/how-to-handle-the-long-press-action-on-date-selection-in-the-flutter-event-calendar)
+* [How to get visible dates details from the flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/11026/how-to-get-visible-dates-details-from-the-flutter-event-calendar-sfcalendar)
+* [How to get Datetime details while tapping the Flutter event calendar elements](https://www.syncfusion.com/kb/10998/how-to-get-datetime-details-while-tapping-the-flutter-event-calendar-elements)
+* [How to handle the long press action on date selection in the Flutter event calendar (SfCalendar)?](https://www.syncfusion.com/kb/12121/how-to-handle-the-long-press-action-on-date-selection-in-the-flutter-event-calendar)
