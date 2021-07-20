@@ -1,13 +1,13 @@
 ---
 layout: post
-title: Getting started with Flutter Radial Gauge widget | Syncfusion
-description: Learn here about getting started with Syncfusion Flutter Radial Gauge (SfRadialGauge) control, its elements, and more. 
-platform: Flutter
+title: Getting Started for Syncfusion Flutter Radial Gauge
+description: A quick tour to initial users on Syncfusion SfRadialGauge for flutter platform
+platform: flutter
 control: SfRadialGauge
 documentation: ug
 ---
 
-# Getting started with Flutter Radial Gauge (SfRadialGauge)
+# Getting Started
 
 This section explains the steps required to add the radial gauge and its elements such as title, axis, range, pointer and annotation. This section covers only basic features needed to know to get started with Syncfusion radial gauge. 
 
@@ -28,11 +28,9 @@ Add the Syncfusion Flutter Gauge dependency to your pubspec.yaml file.
 
     dependencies:
 
-    syncfusion_flutter_gauges: ^xx.x.xx
+    syncfusion_flutter_gauges: ^1.0.0-beta
 
 {% endhighlight %}
-
-N> Here **xx.x.xx** denotes the current version of [`Syncfusion Flutter Gauge`](https://pub.dev/packages/syncfusion_flutter_gauges/versions) package.
 
 **Get packages**
 
@@ -105,7 +103,7 @@ You can add a title to the radial gauge to provide information to users about th
 
 ## Add axis
 
-Axes contain a list of axis elements, where you can add any number of radial axes inside the gauge. You can specify the minimum and maximum values of axis using the [`minimum`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/RadialAxis/minimum.html) and [`maximum`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/RadialAxis/minimum.html) properties as demonstrated in the following code snippet.
+Axes contain a list of axis elements, where you can add any number of radial axes inside the gauge. You can specify the minimum and maximum values of axis using the [`minimum`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/GaugeAxis/minimum.html) and [`maximum`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/GaugeAxis/maximum.html) properties as demonstrated in the following code snippet.
 
 {% highlight dart %} 
 
@@ -149,7 +147,7 @@ Ranges contain a list of range elements, where you can add any number of ranges 
 
 ## Add pointer
 
-Pointers contains a list of pointer elements, where you can add any number of gauge pointers such as [`needlePointer`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/NeedlePointer-class.html), [`rangePointer`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/RangePointer-class.html), [`markerPointer`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/MarkerPointer-class.html), and [`widgetPointer`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/WidgetPointer-class.html) inside the axis to indicate the value.
+Pointers contains a list of pointer elements, where you can add any number of gauge pointers such as [`needlePointer`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/NeedlePointer-class.html), [`rangePointer`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/RangePointer-class.html) and [`markerPointer`](https://pub.dev/documentation/syncfusion_flutter_gauges/latest/gauges/MarkerPointer-class.html) inside the axis to indicate the value. 
 
 {% highlight dart %} 
 
