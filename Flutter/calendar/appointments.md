@@ -1,13 +1,13 @@
 ---
 layout: post 
-title: Appointments | events in Syncfusion Flutter Calendar | Scheduler
-description: Learn how to plan, configure and manage all day, recurrence and spanning appointments in Syncfusion Flutter Calendar.
+title: Appointments in Flutter Event Calendar widget | Syncfusion
+description: Learn here all about Appointments feature of Syncfusion Flutter Event Calendar (SfCalendar) widget and more.
 platform: flutter
 control: SfCalendar
 documentation: ug
 ---
 
-# Appointments
+# Appointments in Flutter Event Calendar (SfCalendar)
 
 SfCalendar widget has a built-in capability to handle the appointment arrangement internally based on the [CalendarDataSource](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/CalendarDataSource-class.html). [Appointment](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/Appointment-class.html) is a class, which holds the details about the appointment to be rendered in calendar.
 
@@ -82,37 +82,37 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    return appointments[index].from;
+    return appointments![index].from;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return appointments[index].to;
+    return appointments![index].to;
   }
 
   @override
   bool isAllDay(int index) {
-    return appointments[index].isAllDay;
+    return appointments![index].isAllDay;
   }
 
   @override
   String getSubject(int index) {
-    return appointments[index].eventName;
+    return appointments![index].eventName;
   }
 
   @override
   String getStartTimeZone(int index) {
-    return appointments[index].startTimeZone;
+    return appointments![index].startTimeZone;
   }
 
   @override
   String getEndTimeZone(int index) {
-    return appointments[index].endTimeZone;
+    return appointments![index].endTimeZone;
   }
 
   @override
   Color getColor(int index) {
-    return appointments[index].background;
+    return appointments![index].background;
   }
 }
 
@@ -138,7 +138,7 @@ You can create a custom class `Meeting` with mandatory fields `from`, and `to`.
 {% highlight Dart %}
 
 class Meeting {
-  Meeting({this.eventName, this.from, this.to, this.background, this.isAllDay});
+  Meeting({this.eventName = '', required this.from, required this.to, required this.background, this.isAllDay = false});
 
   String eventName;
   DateTime from;
@@ -162,37 +162,37 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    return appointments[index].from;
+    return appointments![index].from;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return appointments[index].to;
+    return appointments![index].to;
   }
 
   @override
   bool isAllDay(int index) {
-    return appointments[index].isAllDay;
+    return appointments![index].isAllDay;
   }
 
   @override
   String getSubject(int index) {
-    return appointments[index].eventName;
+    return appointments![index].eventName;
   }
 
   @override
   String getStartTimeZone(int index) {
-    return appointments[index].startTimeZone;
+    return appointments![index].startTimeZone;
   }
 
   @override
   String getEndTimeZone(int index) {
-    return appointments[index].endTimeZone;
+    return appointments![index].endTimeZone;
   }
 
   @override
   Color getColor(int index) {
-    return appointments[index].background;
+    return appointments![index].background;
   }
 }
 
@@ -228,6 +228,63 @@ MeetingDataSource _getCalendarDataSource() {
       isAllDay: false));
 
   return MeetingDataSource(meetings);
+}
+
+{% endhighlight %}
+{% endtabs %}
+
+## Get the business object data
+
+The event data can be achieved in the custom business object type by overriding the [convertAppointmentToObject()]() method from the `CalendarDataSource`.
+
+{% tabs %}
+{% highlight Dart %}
+
+class _DataSource extends CalendarDataSource<_Meeting> {
+   _DataSource(List<_Meeting> source) {
+     appointments = source;
+   }
+
+   @override
+   DateTime getStartTime(int index) {
+     return appointments![index].from as DateTime;
+   }
+
+   @override
+   DateTime getEndTime(int index) {
+     return appointments![index].to as DateTime;
+   }
+
+   @override
+   String getSubject(int index) {
+     return appointments![index].content as String;
+   }
+
+   @override
+   Color getColor(int index) {
+     return appointments![index].background as Color;
+   }
+
+   @override
+   Meeting convertAppointmentToObject(
+       _Meeting customData, Appointment appointment) {
+     return Meeting(
+         from: appointment.startTime,
+         to: appointment.endTime,
+         content: appointment.subject,
+         background: appointment.color,
+         isAllDay: appointment.isAllDay);
+   }
+ }
+
+class Meeting {
+  Meeting({this.content = '', required this.from, required this.to, required this.background, this.isAllDay = false});
+
+  String content;
+  DateTime from;
+  DateTime to;
+  Color background;
+  bool isAllDay;
 }
 
 {% endhighlight %}
@@ -297,11 +354,11 @@ The `recurrenceRule` is a string value (RRULE) that contains the details of the 
 | FREQ | Maintains the Repeat type value of the appointment. (Example: Daily, Weekly, Monthly, Yearly, Every week day) Example: FREQ=DAILY;INTERVAL=1 |
 | INTERVAL | Maintains the interval value of the appointments. For example, when you create the daily appointment at an interval of 2, the appointments are rendered on the days Monday, Wednesday and Friday. (creates the appointment on all days by leaving the interval of one day gap) Example: FREQ=DAILY;INTERVAL=1 |
 | COUNT | It holds the appointment’s count value. For example, when the recurrence appointment count value is 10, it means 10 appointments are created in the recurrence series. Example: FREQ=DAILY;INTERVAL=1;COUNT=10 |
-| UNTIL | This property is used to store the recurrence end date value. For example, when you set the end date of appointment as 6/30/2020, the UNTIL property holds the end date value when the recurrence actually ends. Example: FREQ=DAILY;INTERVAL=1;UNTIL=8/25/2020 |
+| UNTIL | This property is used to store the recurrence end date value. For example, when you set the end date of appointment as 6/30/2020, the UNTIL property holds the end date value when the recurrence actually ends. Example: FREQ=DAILY;INTERVAL=1;UNTIL=20200827T183000Z |
 | BYDAY | It holds the “DAY” values of an appointment to render.For example, when you create the weekly appointment, select the day(s) from the day options (Monday/Tuesday/Wednesday/Thursday/Friday/Saturday/Sunday).  When Monday is selected, the first two letters of the selected day “MO” is stored in the “BYDAY” property.  When you select multiple days, the values are separated by commas. Example: FREQ=WEEKLY;INTERVAL=1;BYDAY=MO,WE;COUNT=10 |
 | BYMONTHDAY | This property is used to store the date value of the Month while creating the Month recurrence appointment. For example, when you create a Monthly recurrence appointment in the date 3, it means the BYMONTHDAY holds the value 3 and creates the appointment on 3rd day of every month. Example: FREQ=MONTHLY;BYMONTHDAY=3;INTERVAL=1;COUNT=10 |
 | BYMONTH | This property is used to store the index value of the selected Month while creating the yearly appointments. For example, when you create the yearly appointment in the Month June, it means the index value for June month is 6 and it is stored in the BYMONTH field.  The appointment is created on every 6th month of a year. Example: FREQ=YEARLY;BYMONTHDAY=16;BYMONTH=6;INTERVAL=1;COUNT=10 |
-| BYSETPOS | This property is used to store the index value of the week. For example, when you create the monthly appointment in second week of the month, the index value of the second week (2) is stored in BYSETPOS. Example: FREQ=MONTHLY;BYDAY=MO;BYSETPOS=2;UNTIL=8/11/2020 |
+| BYSETPOS | This property is used to store the index value of the week. For example, when you create the monthly appointment in second week of the month, the index value of the second week (2) is stored in BYSETPOS. Example: FREQ=MONTHLY;BYDAY=MO;BYSETPOS=2;UNTIL=20200810T183000Z . If the property value is set to -1 and -2, the appointment will be added to the last week and second last week of the month.|
 
 ### Adding recurrence appointment
 
@@ -357,11 +414,11 @@ For creating custom recurrence appointment, you need to create a custom class `M
 
 class Meeting {
   Meeting(
-      {this.eventName,
-      this.from,
-      this.to,
-      this.background,
-      this.isAllDay,
+      {this.eventName = '',
+      required this.from,
+      required this.to,
+      required this.background,
+      this.isAllDay = false,
       this.recurrenceRule});
 
   String eventName;
@@ -369,7 +426,7 @@ class Meeting {
   DateTime to;
   Color background;
   bool isAllDay;
-  String recurrenceRule;
+  String? recurrenceRule;
 }
 
 {% endhighlight %}
@@ -387,32 +444,32 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    return appointments[index].from;
+    return appointments![index].from;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return appointments[index].to;
+    return appointments![index].to;
   }
 
   @override
   bool isAllDay(int index) {
-    return appointments[index].isAllDay;
+    return appointments![index].isAllDay;
   }
 
   @override
   String getSubject(int index) {
-    return appointments[index].eventName;
+    return appointments![index].eventName;
   }
 
   @override
   Color getColor(int index) {
-    return appointments[index].background;
+    return appointments![index].background;
   }
 
   @override
   String getRecurrenceRule(int index) {
-    return appointments[index].recurrenceRule;
+    return appointments![index].recurrenceRule;
   }
 }
 
@@ -457,41 +514,41 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    return appointments[index].from;
+    return appointments![index].from;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return appointments[index].to;
+    return appointments![index].to;
   }
 
   @override
   bool isAllDay(int index) {
-    return appointments[index].isAllDay;
+    return appointments![index].isAllDay;
   }
 
   @override
   String getSubject(int index) {
-    return appointments[index].eventName;
+    return appointments![index].eventName;
   }
 
   @override
   Color getColor(int index) {
-    return appointments[index].background;
+    return appointments![index].background;
   }
 
   @override
   String getRecurrenceRule(int index) {
-    return appointments[index].recurrenceRule;
+    return appointments![index].recurrenceRule;
   }
 }
 
 class Meeting {
-  Meeting({this.eventName,
-    this.from,
-    this.to,
-    this.background,
-    this.isAllDay,
+  Meeting({this.eventName = '',
+    required this.from,
+    required this.to,
+    required this.background,
+    this.isAllDay = false,
     this.recurrenceRule});
 
   String eventName;
@@ -499,7 +556,7 @@ class Meeting {
   DateTime to;
   Color background;
   bool isAllDay;
-  String recurrenceRule;
+  String? recurrenceRule;
 }
 
 {% endhighlight %}
@@ -624,16 +681,16 @@ To add the exception dates in the recurrence series of custom appointment, add t
 
 @override
 Widget build(BuildContext context) {
-  return MaterialApp(
-    home: Scaffold(
-      body: Container(
-        child: SfCalendar(
-          view: CalendarView.week,
-          dataSource: _getCalendarDataSource(),
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          child: SfCalendar(
+            view: CalendarView.week,
+            dataSource: _getCalendarDataSource(),
+          ),
         ),
       ),
-    ),
-  );
+    );
 }
 
 MeetingDataSource _getCalendarDataSource() {
@@ -659,47 +716,47 @@ class MeetingDataSource extends CalendarDataSource {
 
   @override
   DateTime getStartTime(int index) {
-    return appointments[index].from;
+    return appointments![index].from;
   }
 
   @override
   DateTime getEndTime(int index) {
-    return appointments[index].to;
+    return appointments![index].to;
   }
 
   @override
   bool isAllDay(int index) {
-    return appointments[index].isAllDay;
+    return appointments![index].isAllDay;
   }
 
   @override
   String getSubject(int index) {
-    return appointments[index].eventName;
+    return appointments![index].eventName;
   }
 
   @override
   Color getColor(int index) {
-    return appointments[index].background;
+    return appointments![index].background;
   }
 
   @override
   String getRecurrenceRule(int index) {
-    return appointments[index].recurrenceRule;
+    return appointments![index].recurrenceRule;
   }
 
   @override
   List<DateTime> getRecurrenceExceptionDates(int index) {
-    return appointments[index].exceptionDates;
+    return appointments![index].exceptionDates;
   }
 }
 
 class Meeting {
   Meeting(
-      {this.eventName,
-      this.from,
-      this.to,
-      this.background,
-      this.isAllDay,
+      {this.eventName = '',
+      required this.from,
+      required this.to,
+      required this.background,
+      this.isAllDay = false,
       this.recurrenceRule,
       this.exceptionDates});
 
@@ -708,8 +765,8 @@ class Meeting {
   DateTime to;
   Color background;
   bool isAllDay;
-  String recurrenceRule;
-  List<DateTime> exceptionDates;
+  String? recurrenceRule;
+  List<DateTime>? exceptionDates;
 }
 
 {% endhighlight %}
@@ -718,8 +775,67 @@ class Meeting {
 >**NOTE**
 * Exception dates should be Universal Time Coordinates (UTC) time zone.
 
+### Add exception appointment to the recurrence series
+
+Add an exception appointment that is changed or modified occurrence of the recurrence pattern appointment to the `dateSource` of the `SfCalendar`. To add a changed occurrence, ensure to set the [RecurrenceId](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/Appointment/recurrenceId.html) of that occurrence, and add the date of that occurrence to the [RecurrenceExceptionDates](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/Appointment/recurrenceExceptionDates.html) of recurrence pattern appointment. The `RecurrenceId` of the changed occurrence should hold the exact recurrence pattern appointment [Id](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/Appointment/id.html). We can get the type of appointment from the [appointmentType](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/Appointment/appointmentType.html) property. 
+
+{% tabs %}
+{% highlight Dart %}
+
+@override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: Container(
+          child: SfCalendar(
+            view: CalendarView.week,
+            dataSource: _getDataSource(),
+          ),
+        ),
+      ),
+    );
+  }
+AppointmentDataSource _getDataSource() {
+  final List<Appointment> appointments = <Appointment>[];
+  final DateTime exceptionDate = DateTime(2021, 04, 20);
+
+  final Appointment recurrenceAppointment = Appointment(
+    startTime: DateTime(2021, 04, 12, 10),
+    endTime: DateTime(2021, 04, 12, 12),
+    subject: 'Scrum meeting',
+    id: '01',
+    recurrenceRule: 'FREQ=DAILY;INTERVAL=1;COUNT=10',
+    color: Colors.purple,
+    recurrenceExceptionDates: <DateTime>[exceptionDate],
+  );
+  appointments.add(recurrenceAppointment);
+
+  final Appointment exceptionAppointment = Appointment(
+      startTime: exceptionDate.add(const Duration(hours: 14)),
+      endTime: exceptionDate.add(const Duration(hours: 15)),
+      subject: 'Meeting',
+      id: '02',
+      color: Colors.pinkAccent,
+      recurrenceId: recurrenceAppointment.id);
+
+  appointments.add(exceptionAppointment);
+
+  return AppointmentDataSource(appointments);
+}
+
+{% endhighlight %}
+{% endtabs %}
+
+![Recurrence Series in Flutter Calendar](images/appointments/flutter-calendar-recurrence-series.png)
+
+>**NOTE**
+* The RecurrenceId of the changed occurrence should hold the exact recurrence pattern appointment Id.
+* The exception appointment should be a normal appointment, and should not be created as recurring appointment, since its occurrence is from recurrence pattern.
+* The exception recurrence appointment does not have the RecurrenceRule, so for an exception appointment, it will be reset to empty.
+
+
 ## Appearance customization
-Calendar appointment text style can be customized by using the [appointmentTextStyle](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/SfCalendar/appointmentTextStyle.html) property of calendar.
+The Calendar appointment text style can be customized by using the [appointmentTextStyle](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/SfCalendar/appointmentTextStyle.html) property of the calendar.
 
 {% tabs %}
 {% highlight Dart %}
@@ -747,3 +863,162 @@ Widget build(BuildContext context) {
 {% endtabs %}
 
 ![Appearance customization](images/appointments/appearance-customization.png)
+
+## Appointment time format
+You can customize the displaying time format in the appointment widget in the month agenda view and schedule view of calendar by specifying the [appointmentTimeTextFormat](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/SfCalendar/appointmentTimeTextFormat.html) property of the SfCalendar.
+
+{% tabs %}
+{% highlight Dart %}
+@override
+ Widget build(BuildContext context) {
+   return SfCalendar(
+     view: CalendarView.month,
+     dataSource: _calendarDataSource,
+     appointmentTimeTextFormat: 'HH:mm',
+     monthViewSettings: MonthViewSettings(
+         showAgenda: true
+     ),
+   );
+ }
+
+{% endhighlight %}
+{% endtabs %}
+
+![Appointment time format](images/appointments/appointment_time_format.png)
+
+## Appointment helper
+
+### Get visible appointments
+
+You can get the list of visible appointments by using the [getVisibleAppointments](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/CalendarDataSource/getVisibleAppointments.html) method available in the Calendar data source.
+
+{% tabs %}
+{% highlight Dart %}
+
+@override
+initState() {
+  _calendarController = CalendarController();
+  _dataSource = _getCalendarDataSource();
+  super.initState();
+}
+
+@override
+Widget build(BuildContext context) {
+  return MaterialApp(
+    home: Scaffold(
+      body: SfCalendar(
+        view: CalendarView.month,
+        controller: _calendarController,
+        dataSource: _dataSource,
+        onViewChanged: (ViewChangedDetails details) {
+          List<DateTime> dates = details.visibleDates;
+          String calendarTimeZone = '';
+          List<Object> appointment = _dataSource.getVisibleAppointments(
+              dates[0], calendarTimeZone,
+              dates[(details.visibleDates.length) - 1]);
+         },
+       ),
+     ),
+   );
+ }
+}
+
+{% endhighlight %}
+{% endtabs %}
+
+>**NOTE**
+* The `startTime` specifies the starting date from which the appointments should be obtained.
+
+
+### Get occurrence appointment
+
+Gets an occurrence at the specified date within a series of recurring appointments by using the [getOccurrenceAppointment](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/CalendarDataSource/getOccurrenceAppointment.html). 
+
+{% tabs %}
+{% highlight Dart %}
+
+ @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: SfCalendar(
+          view: CalendarView.month,
+          controller: _calendarController,
+          dataSource: _dataSource,
+          onTap: (CalendarTapDetails details) {
+            final DateTime? date = details.date;
+            final Appointment? occurrenceAppointment =
+                _dataSource.getOccurrenceAppointment(recurrenceApp, date!, '');
+          },
+        ),
+      ),
+    );
+  }
+
+{% endhighlight %}
+{% endtabs %}
+
+>**NOTE**
+* If there is no appointment occurring on the date specified, null is returned.
+* The `patternAppointment` is required for the start appointment in a recurrence series, from which the occurrence appointments are cloned with the pattern appointment characteristics.
+* The `date` is required for the occurrence appointment.
+
+
+### Get pattern appointment
+
+Gets the pattern appointment for the specified occurrence by using the [getPatternAppointment](https://pub.dev/documentation/syncfusion_flutter_calendar/latest/calendar/CalendarDataSource/getPatternAppointment.html).
+
+{% tabs %}
+{% highlight Dart %}
+ 
+ @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: SfCalendar(
+          view: CalendarView.month,
+          controller: _calendarController,
+          dataSource: _dataSource,
+          onTap: (CalendarTapDetails details) {
+            if (details.appointments!.isNotEmpty &&
+                details.appointments != null) {
+              final dynamic occurrenceAppointment = details.appointments![0];
+              final Appointment? patternAppointment =
+                  _dataSource.getPatternAppointment(occurrenceAppointment, '')
+                      as Appointment?;
+            }
+          },
+        ),
+      ),
+    );
+  }
+
+{% endhighlight %}
+{% endtabs %}
+
+>**NOTE**
+* The `occurrenceAppointment` is necessary in order to receive the Pattern appointment.
+
+## See also
+
+* [How to design and configure your appointment editor in event calendar widget Flutter](https://www.syncfusion.com/kb/11204/how-to-design-and-configure-your-appointment-editor-in-event-calendar-widget-flutter)
+* [How to get appointment details from the OnTap event of the Flutter event calendar](https://www.syncfusion.com/kb/10999/how-to-get-appointment-details-from-the-ontap-event-of-the-flutter-event-calendar)
+* [How to style the appointment in the Flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/12162/how-to-style-the-appointment-in-the-flutter-event-calendar-sfcalendar)
+* [How to exclude the dates from recurrence appointments in the Flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/12161/how-to-exclude-the-dates-from-recurrence-appointments-in-the-flutter-event-calendar)
+* [How to add recurring appointments until the specified date in the Flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/12158/how-to-add-recurring-appointments-until-the-specified-date-in-the-flutter-event-calendar)
+* [How to add the appointments to the Fire base database using appointment editor in the Flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/12110/how-to-add-the-appointments-to-the-firebase-database-using-appointment-editor-in-the)
+* [How to work with the Fire base database and the Flutter event calendar (SfCalendar) for appointments](https://www.syncfusion.com/kb/12067/how-to-work-with-the-firebase-database-and-the-flutter-event-calendar-sfcalendar-for)
+* [How to add google calendar events to the Flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/12116/how-to-add-google-calendar-events-to-the-flutter-event-calendar-sfcalendar)
+* [How to add additional attributes in events in the Flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/12209/how-to-add-additional-attributes-in-events-in-the-flutter-event-calendar-sfcalendar)
+* [How to add the appointments using the onTap callback in the Flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/12300/how-to-add-the-appointments-using-the-ontap-callback-in-the-flutter-calendar)
+* [How to set the arbitrary height to appointments in the Flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/12279/how-to-set-the-arbitrary-height-to-appointments-in-the-flutter-event-calendar-sfcalendar)
+* [How to get the recurrence date collection in the Flutter event calendar (SfCalendar)](https://www.syncfusion.com/kb/12344/how-to-get-the-recurrence-date-collection-in-the-flutter-event-calendar-sfcalendar)
+* [How to get the recurrence properties from RRULE in the Flutter calendar](https://www.syncfusion.com/kb/12370/how-to-get-the-recurrence-properties-from-rrule-in-the-flutter-calendar)
+* [How to update blackout dates using onViewChanged callback in the Flutter calendar](https://www.syncfusion.com/kb/12368/how-to-update-blackout-dates-using-onviewchanged-callback-in-the-flutter-calendar)
+* [How to use navigation drawer for view switching in the Flutter calendar](https://www.syncfusion.com/kb/12361/how-to-use-navigation-drawer-for-view-switching-in-the-flutter-calendar)
+* [How to show the tapped appointment details on another page in the Flutter event calendar](https://www.syncfusion.com/kb/12358/how-to-show-the-tapped-appointment-details-on-another-page-in-the-flutter-event-calendar)
+* [How to load appointments On-Demand in Flutter Calendar](https://www.syncfusion.com/kb/12658/how-to-load-appointments-on-demand-in-flutter-calendar)
+* [How to load the google calendar events to the Flutter Calendar (SfCalendar) in iOS](https://www.syncfusion.com/kb/12647/how-to-load-the-google-calendar-events-to-the-flutter-calendar-sfcalendar-in-ios)
+* [How to perform the CRUD operations in Flutter Calendar using Fire base database](https://www.syncfusion.com/kb/12623/how-to-perform-the-crud-operations-in-flutter-calendar-using-firebase-database)
+* [How to add the appointments to Fire store Database using Flutter Calendar](https://www.syncfusion.com/kb/12616/how-to-add-the-appointments-to-firestore-database-using-flutter-calendar)
+* [How to perform the CRUD operations in Flutter Calendar using Fire store database](https://www.syncfusion.com/kb/12661/how-to-perform-the-crud-operations-in-flutter-calendar-using-firestore-database)
