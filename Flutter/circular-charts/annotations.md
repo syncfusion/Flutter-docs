@@ -92,7 +92,7 @@ Chart supports watermark which allows you to mark the specific area of interest 
               child: SfCircularChart(
                 annotations: <CircularChartAnnotation>[
                  CircularChartAnnotation(
-                 widget: Container(
+                 child: Container(
                   child: const Text(
                     '€ - \$ ',
                   style: TextStyle(
