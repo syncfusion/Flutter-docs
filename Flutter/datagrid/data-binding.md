@@ -246,7 +246,7 @@ class EmployeeDataSource extends DataGridSource {
 {% endhighlight %}
 {% endtabs %}
 
-If the value of the specific cell is updated, you can `notifyDataSourceListeners` method with [RowColumnIndex](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/RowColumnIndex-class.html) argument where it refers the corresponding row and column index of the cell. 
+If the value of the specific cell is updated, you can call `notifyDataSourceListeners` method with [RowColumnIndex](https://pub.dev/documentation/syncfusion_flutter_datagrid/latest/datagrid/RowColumnIndex-class.html) argument where it refers the corresponding row and column index of the cell. 
 So, DataGrid refreshes the corresponding cell alone.
 
 In the following example, cell value is updated and `notifyDataSourceListeners` is called in `onPressed` callback of the `TextButton`.
